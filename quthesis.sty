@@ -1,0 +1,372 @@
+% ----------------------------------------------------------------
+%
+% Modified by Ben Gardiner<blg@mast.queensu.ca>, 20-Apr-2007:
+% - added changed clearpage to cleardoublepage in the TOC, this
+%		ensures it shows up on a 'right' page when the thesis is
+%		is using the 'book' class.
+% - removed the clearpage and put the addcontents command into the
+%		chapter enviroment of \prefacesection. This ensures no additional
+%		blank pages are produced when using the 'book' class and that the
+%		page reference to a prefacesection in the TOC is correct.
+% Modified by Ben Gardiner<blg@mast.queensu.ca>, 26-Mar-2007 to:
+% -Switched the TOC entry of the TOC itself to use the internal
+%  macro, \contentsname; also make  renew of this to be {Table
+%  of Contents} instead of Contents.
+% -Similiarly switched to \listfigurename and \listtablename, but
+%  didn't redefine.
+% -Add 'Chapter ' before number and ':' after number in TOC, using
+%  tocloft package. This is done by embedding tocloft commands in
+%  the TOC file, the embedding is initialized by \afterpreface
+%  and \appendix; as such these commands must be _in_ any included
+%  files that represent the beginning of the body and appendices of
+%  the document.
+% -Add 'Appendix ' before letter and ':' after letter in TOC for
+%  appendices, using the same technique. It has the same limitation,
+%  so \appendix _must_ be in the same file where the first \chapter{}
+%  marking an appendix is.
+% - modified the documentation to reflect this fact.
+%
+% Modified by Dean Jin, 24-Aug-2003 to:
+% - add the Preface, Acknowledgements, List of Figures and List of
+%   Tables to the Table of Contents (many thanks to Sean Chen for
+%   his original idea on how to do this)
+% - correct the improper margin (less than the required 1 inch) on
+%   pages where the number is centered on the bottom (like the 1st
+%   page of each chapter, etc.)
+% - update the documentation to reflect the proper way to use this
+%   file with LaTeX 2e (slight modification in "Examples of use")
+% ----------------------------------------------------------------
+% Queen's University thesis style as changed by Bob Burke from...
+%------------------------------------------------------------------------------
+% Stanford University PhD thesis style -- modifications to the report style
+% For LaTeX version 2.09
+%
+% Last edit Tue Sep 13 14:40:26 1988
+% Last edit by Joseph Pallas
+%------------------------------------------------------------------------------
+
+\typeout{Document Style Option `quthesisDJ' <24-Aug-2003>.}
+
+\long\def\comment#1{}
+\comment{
+
+Example of use (single file):
+
+    \documentclass[12pt]{report} % or could use `book' style
+
+    \usepackage{quthesis}
+
+    \begin{document}
+    \title{How to Write Theses\\
+        With Two Line Titles}
+    \author{John Henry Candidate}
+
+    \beforepreface
+    \prefacesection{Preface}
+        This thesis tells you all you need to know about...
+    \prefacesection{Acknowledgments}
+        I would like to thank...
+        ...
+    \afterpreface
+    \chapter{Introduction} %if your intro is in a separate file, make sure
+                           %\afterpreface is at the head of that file (see 'many
+													 % files' example below)
+         ...
+    \chapter{Conclusions}
+         ...
+    \bibliographystyle{plain}
+    \bibliography{mybib}
+         ...
+    \appendix
+    \chapter{A Long Proof} %same for appendices, make sure \appendix
+                           %is in the file. (see 'many files' example below)
+        ...
+    \chapter*{Vita}
+    \end{document}
+
+Example of use (many files):
+file main.tex (or thesis.tex or whatever.tex):
+    \documentclass[12pt]{report}
+
+    \usepackage{quthesis}
+
+    \begin{document}
+    \title{How to Write Theses\\
+        With Two Line Titles}
+    \author{John Henry Candidate}
+
+    \beforepreface
+    \prefacesection{Preface}
+        This thesis tells you all you need to know about...
+    \prefacesection{Acknowledgments}
+        I would like to thank...
+
+		\include{intro}
+				...
+		\include{body}
+				...
+    \include{conclusion}
+    \bibliographystyle{plain}
+    \bibliography{mybib}
+    \include{appendix}
+
+    \end{document}
+
+file intro.tex:
+	\afterpreface
+	\chapter{Introduction}
+	...
+
+file body.tex(conclusion.tex, etc.):
+	\chapter{Literature Review}
+	...
+
+file appendix.tex:
+	\appendix
+  \chapter{A Long Proof}
+	...
+	\chapter*{Vita}
+
+Documentation:
+
+    This style file modifies the standard report or book styles to
+    follow the School of Graduate Studies and Research's "General Form
+    of Thesis."  It sets the margins and interline spacing and disallows
+    page breaks at hyphens.
+
+    The \beforepreface command creates the title page.  Then the user
+    should put preface section(s), using the command:
+
+        \prefacesection{section title}
+
+    The \afterpreface command then produces the tables of contents,
+    tables and figures, and sets things up to start the main body (on
+    arabic page 1).
+
+    The following commands can control what goes in the front matter
+    material:
+
+    \title{thesis title}
+    \author{author's name}
+    \dept{author's department}
+        - Electrical and Computer Engineering if omitted
+    \degree{degree expected}
+        - Master of Science if omitted
+    \submitdate{month year in which submitted to GPO}
+        - date LaTeX'd if omitted
+    \copyrightyear{year degree conferred}
+        - year LaTeX'd if omitted
+    \figurespagetrue or \figurespagefalse
+        - produce or don't produce a List of Figures page
+          (true by default)
+    \tablespagetrue or \tablespagefalse
+        - produce or don't produce a List of Tables page
+          (true by default)
+
+    This style uses double spacing, except in the figure and table
+    environments where normal spacing is used.  That can be changed by
+    doing:
+
+        \renewcommand{\baselinestretch}{1.6}
+
+    (or whatever you want instead of 1.6) Unfortunately, that
+    command probably won't take effect unless it comes before the
+    \begin{document} or before something like \small\normalsize.
+
+    The example above shows the 12pt substyle being used.  This
+    seems to give acceptable looking results, but it may be omitted
+    to get smaller print.
+}
+
+% First thing we do is make sure that report has been loaded.  A
+% common error is to try to use quthesis as a documentstyle.
+\@ifundefined{chapter}{\@latexerr{The `quthesis' option should be used
+with the `report' or `book' document styles}{You should probably read the
+quthesis documentation.}}{}
+
+% We need 1" margins except on the binding edge, where it is 1 1/2"
+% Theses are single-sided, so we don't care about \evensidemargin
+\oddsidemargin 0.5in \evensidemargin 0in
+\marginparwidth 40pt \marginparsep 10pt
+\topmargin 0pt \headsep .5in
+\textheight 8.1in \textwidth 6in
+
+% Fixes the less than 1 inch at the bottom of the page problem
+\footskip 20pt
+
+% Disallow page breaks at hyphens (this will give some underfull vbox's,
+% so an alternative is to use \brokenpenalty=100 and manually search
+% for and fix such page breaks)
+\brokenpenalty=10000
+
+%---Set up double spacing (code taken from setspace.sty)
+\ifcase \@ptsize \relax % 10pt
+    \def\baselinestretch{1.667}
+  \or % 11pt
+    \def\baselinestretch{1.618}
+  \or % 12pt
+    \def\baselinestretch{1.655}
+  \fi
+
+% Redefine the macro used for floats (including figures and tables)
+% so that single spacing is used.
+% (Note \def\figure{\@float{figure}set single spacing} doesn't work
+% because figure has an optional argument)
+%%%%%%%%%%%%%%%%%%%% Xiaodong Removed this part for a try %%%%%%%%
+%\def\@xfloat#1[#2]{\ifhmode \@bsphack\@floatpenalty -\@Mii\else
+%   \@floatpenalty-\@Miii\fi\def\@captype{#1}\ifinner
+%      \@parmoderr\@floatpenalty\z@
+%    \else\@next\@currbox\@freelist{\@tempcnta\csname ftype@#1\endcsname
+%       \multiply\@tempcnta\@xxxii\advance\@tempcnta\sixt@@n
+%       \@tfor \@tempa :=#2\do
+%                        {\if\@tempa h\advance\@tempcnta \@ne\fi
+%                         \if\@tempa t\advance\@tempcnta \tw@\fi
+%                         \if\@tempa b\advance\@tempcnta 4\relax\fi
+%                         \if\@tempa p\advance\@tempcnta 8\relax\fi
+%         }\global\count\@currbox\@tempcnta}\@fltovf\fi
+%    \global\setbox\@currbox\vbox\bgroup
+%    \def\baselinestretch{1}\@normalsize
+%    \boxmaxdepth\z@
+%    \hsize\columnwidth \@parboxrestore}
+
+
+% Redefine the macro used for footnotes to use single spacing
+\long\def\@footnotetext#1{\insert\footins{\def\baselinestretch{1}\footnotesize
+    \interlinepenalty\interfootnotelinepenalty
+    \splittopskip\footnotesep
+    \splitmaxdepth \dp\strutbox \floatingpenalty \@MM
+    \hsize\columnwidth \@parboxrestore
+   \edef\@currentlabel{\csname p@footnote\endcsname\@thefnmark}\@makefntext
+    {\rule{\z@}{\footnotesep}\ignorespaces
+      #1\strut}}}
+
+% \author, \title, \dept, \degree are defined in report;
+% here are the rest of the front matter defining macros
+\def\dept#1{\gdef\@dept{#1}}
+\def\degree#1{\gdef\@degree{#1}}
+\def\submitdate#1{\gdef\@submitdate{#1}}
+\def\copyrightyear#1{\gdef\@copyrightyear{#1}} % \author, \title in report
+\def\@title{}\def\@author{}
+\def\@dept{Department of Electrical and Computer Engineering}
+\def\@degree{Master of Science}
+\def\@submitdate{\ifcase\the\month\or
+  January\or February\or March\or April\or May\or June\or
+  July\or August\or September\or October\or November\or December\fi
+  \space \number\the\year}
+\def\@copyrightyear{\number\the\year}
+\newif\iffigurespage \newif\iftablespage
+\figurespagetrue \tablespagetrue
+
+
+\def\titlep{%
+    \thispagestyle{empty}%
+    \begin{center}
+        {\Large\sc\@title}\\
+        \mbox{}\\
+        \mbox{}\\
+        by\\
+        \mbox{}\\
+        \mbox{}\\
+        {\large\sc\@author}\\
+    \end{center}
+    \mbox{}
+    \begin{center}
+        A thesis submitted to the\\
+        \@dept\\
+        in conformity with the requirements for\\
+        the degree of \@degree\\
+    \end{center}
+    \mbox{}
+    \begin{center}
+        Queen's University\\
+        Kingston, Ontario, Canada\\
+        \@submitdate\\
+    \end{center}
+    \mbox{}
+    \begin{center}
+        Copyright \copyright\ \@author, \@copyrightyear
+    \end{center}\cleardoublepage}
+
+\def\beforepreface{
+    \titlep
+    \pagenumbering{roman}
+    \pagestyle{plain}}
+
+%BLG: removed clearpage and put addcontents inside chapter environment to
+%			ensure the proper page shows up in the TOC
+\def\prefacesection#1{
+    \chapter*{\addcontentsline{toc}{chapter}{#1} #1}}
+
+\renewcommand{\contentsname}{Table of Contents}
+
+%BLG: changed clearpage to cleardoublepage for proper 'book' printing
+\def\afterpreface{\cleardoublepage
+    \addcontentsline{toc}{chapter}{\contentsname}
+    \setcounter{tocdepth}{1}
+    \tableofcontents
+    \clearpage
+%    \iftablespage
+%        \addcontentsline{toc}{chapter}{\listtablename}
+%        \listoftables
+%        \clearpage
+%    \fi
+    \iffigurespage
+        \addcontentsline{toc}{chapter}{\listfigurename}
+        \listoffigures
+        \clearpage
+    \fi
+        \addcontentsline{toc}{chapter}{\nomname}
+        \printnomenclature[3cm]
+        \clearpage
+    \pagenumbering{arabic}
+    \pagestyle{headings}}
+
+% Redefine \thebibliography to go to a new page and put an entry in the
+% table of contents
+\let\@ldthebibliography\thebibliography
+\renewcommand{\thebibliography}[1]{\clearpage
+    \addcontentsline{toc}{chapter}{Bibliography}
+    \@ldthebibliography{#1}}
+
+% Start out normal
+\pagestyle{headings}
+
+%BLG: SGPS would like "Chapter" to preceed the chapter numbers in the TOC and have the chapter name, leader and page number on a separate line
+%BLG: the tocloft package lets us control the typesetting of the TOC,LOF and LOT
+%note, if you use subfigure, you need to pass 'subfigure' as an option to this package, or use subfig instead.
+\RequirePackage{tocloft}
+
+%save the width
+\newlength{\quthesisbackupwidth}
+\setlength{\quthesisbackupwidth}{\cftchapnumwidth}
+
+%BLG: these 'changeto' commands, thanks to "Peter Wilson" <peter.r.wil...@boeing.com>, will be embedded in the toc file, and evaluated upon generation of the TOC
+%FIXME: "\renewcommand{\cftchapaftersnumb}{\\}" below should cause a newline between 'Chapter X:' and its title,leader and pagenumber but it doesn't.
+
+%%this will handle the Chapter entries
+\DeclareRobustCommand{\changetochap}{%
+  \renewcommand*{\cftchappresnum}{\chaptername\space}%
+  \renewcommand{\cftchapleader}{\cftchapfont\cftdotfill{\cftdotsep}}%
+  \renewcommand{\cftchapaftersnum}{:}%
+  \renewcommand{\cftchapaftersnumb}{\\}%
+  \settowidth{\cftchapnumwidth}{\cftchapfont\cftchappresnum\cftchapaftersnum}%
+	\addtolength{\cftchapnumwidth}{\quthesisbackupwidth}}
+
+%this will handle the appendix entries
+\DeclareRobustCommand{\changetoapp}{%use the backed-up width here
+  \renewcommand*{\cftchappresnum}{\appendixname\space}%
+  \renewcommand{\cftchapleader}{\cftchapfont\cftdotfill{\cftdotsep}}%
+  \renewcommand{\cftchapaftersnum}{:}%
+  \renewcommand{\cftchapaftersnumb}{\\}%
+  \settowidth{\cftchapnumwidth}{\cftchapfont\cftchappresnum\cftchapaftersnum}%
+	\addtolength{\cftchapnumwidth}{\quthesisbackupwidth}}
+
+% modify the \appendix macro to add code to the ToC, thanks to "Peter Wilson" <peter.r.wil...@boeing.com>
+\let\oldappendix\appendix
+\renewcommand*{\appendix}{\oldappendix
+  \addtocontents{toc}{\changetoapp}}
+
+%% modify the \afterpreface macro to add code to the TOC
+\let\oldafterpreface\afterpreface
+\renewcommand*{\afterpreface}{\oldafterpreface
+  \addtocontents{toc}{\changetochap}}

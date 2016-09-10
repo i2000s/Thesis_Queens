@@ -1,0 +1,182 @@
+\chapter[Numerical Bare Cavity GFT Calculation]{Bare Cavity GFT Calculation Based on FDTD Method}\label{App:FDTD_GFT}
+\section{Theory of FDTD-based GF Calculation Method}\label{section:schema4bareGFT}
+
+In this appendix, let us only consider the bare Green function tensor $G(r,r',\omega)$ in a cavity without emitters scattering effect. I assume the total GFT is given by
+\begin{equation}
+ G^{total}=G^{cav}+G^{rad},
+\label{Gtotal}
+\end{equation}
+where $G^{cav}$ is the cavity mode contribution, and $G^{rad}$ is the radiative mode contribution. For most cases studied in this thesis, one can have the following relationships:
+\begin{subequations}
+ \begin{align}
+ \label{Gtotalnum} G^{total} &=G^{FDTD}=G^{num}, \\
+ \label{Gcav} G^{cav} &=G^{A}_{cav}\approx G^{FDTD}, \\
+ \label{Grad} G^{rad} &=G^{rad}_{slab} \simeq G_{hom}.
+ \end{align}
+\end{subequations}
+Notice that, in Equ.\eqref{Grad}, the $G^{rad}_{slab}$ is the radiative GF of a three-layer configuration which may correspond to a PC slab. The $G^{hom}$ is homogeneous GF.
+%Equs.\eqref{Gtotal} and~\eqref{Gtotalnum}, \eqref{Gcav}, \eqref{Grad} tell us that we can check $G^{FDTD}$ with $G^{A}$, or vice verse.
+The detailed explanation of the relationships above is presented in Appendix~\ref{App:analyticalGF}.
+
+If one has performed the simulation in Lumerical with a dipole source, some time monitors, a global frequency/mode monitor and a global index monitor, the numerical Green function gives
+\begin{equation}
+ G_{ij}^{FDTD}(\rr,\omega)=\frac{{\rm FT}[E^i_\lambda(\mathbf{r},t)]}{{\rm FT}[E^j_d(\mathbf{r}',t)]}
+=\frac{E^i_\lambda(\mathbf{r},\omega)}{E^j_d(\mathbf{r}',\omega)}, \quad (i,j=x, y, z),
+\label{Gnum}
+\end{equation}
+where the E-field of the dipole source is sampled by a time monitor, or calculated using the following expression if a standard dipole source at $\mathbf{r}'=\mathbf{r}_d$ is excited:
+\begin{equation}
+ \label{def:dipleft}
+E^j_d(\mathbf{r}_d,t)=-\frac{\mu_n^j}{\varepsilon_0}\exp(-2\ln(2)\frac{(t-t_0)^2}{\tau^2})\cdot\sin[\omega_0(t-t_0)],\quad j=x, y, z.
+\end{equation}
+These two calculation methods of a dipole field are equivalent only when the cavity $\mathbf{f}$ is normalized, which is set as default in Lumerical FDTD Solutions.
+
+And the analytical GFT for the cavity~\cite{Sakoda2005} gives
+\begin{equation}
+ \mathbf{G}^{A}_{cav}(\br,\br',\omega)=\sum_{c\lambda}{\frac{\omega^2\mathbf{f}_{c\lambda}(\mathbf{r},\omega_{c\lambda})\mathbf{f}_{c\lambda}^*(\mathbf{r}',\omega_{c\lambda})}
+{\omega_{c\lambda}^2-\omega^2-i2\omega\Gamma_{c\lambda}}},
+\label{Ganal}
+\end{equation}
+where
+%\begin{equation}
+\begin{align}
+  {}& \quad \quad \quad \quad \quad \quad \mathbf{f}_{c\lambda}(\mathbf{r},\omega_{c\lambda})\mathbf{f}_{c\lambda}^*(\mathbf{r}',\omega_{c\lambda})
+= \mathbf{f}_{c\lambda}(\mathbf{r},\omega_{c\lambda}) \otimes \mathbf{f}_{c\lambda}^*(\mathbf{r}',\omega_{c\lambda}),\\
+=& \! \left( \! \begin{array}{c}
+               f_{c\lambda}^x(\mathbf{r},\omega_{c\lambda})f_{c\lambda}^{x*}(\mathbf{r}',\omega_{c\lambda}) \quad
+                 f_{c\lambda}^x(\mathbf{r},\omega_{c\lambda})f_{c\lambda}^{y*}(\mathbf{r}',\omega_{c\lambda}) \quad
+                 f_{c\lambda}^x(\mathbf{r},\omega_{c\lambda})f_{c\lambda}^{z*}(\mathbf{r}',\omega_{c\lambda}) \\
+               f_{c\lambda}^y(\mathbf{r},\omega_{c\lambda}){f}_{c\lambda}^{x*}(\mathbf{r}',\omega_{c\lambda}) \quad
+                 f_{c\lambda}^y(\mathbf{r},\omega_{c\lambda}){f}_{c\lambda}^{y*}(\mathbf{r}',\omega_{c\lambda}) \quad
+                 f_{c\lambda}^y(\mathbf{r},\omega_{c\lambda}){f}_{c\lambda}^{z*}(\mathbf{r}',\omega_{c\lambda}) \\
+               f_{c\lambda}^z(\mathbf{r},\omega_{c\lambda}){f}_{c\lambda}^{x*}(\mathbf{r}',\omega_{c\lambda}) \quad
+                 f_{c\lambda}^z(\mathbf{r},\omega_{c\lambda}){f}_{c\lambda}^{y*}(\mathbf{r}',\omega_{c\lambda}) \quad
+                 f_{c\lambda}^z(\mathbf{r},\omega_{c\lambda}){f}_{c\lambda}^{z*}(\mathbf{r}',\omega_{c\lambda})
+              \end{array} \! \right) \! \label{fmatrix},
+\end{align}
+%\end{equation}
+and $\Gamma_{c\lambda}$ is the decay rate with the same definition as that of Harminv (a half of the FWHM).
+
+%Notice that the definition function for Green function in Equ.\eqref{Ganal} differs from that of numerical one, which is derived from Equ.\eqref{GFnum}. However, if we normalize the mode $\mathbf{f}$ by a field with a field function as same as the analytical Green function, then we can cancel the effect brought in by this definition difference. Actually, it is canceled in the normalization procedure.
+
+As tested in Appendix~\ref{App:analyticalGF}, we can safely assume
+\begin{equation}
+ G^{num}=G^{cav}.
+\end{equation}
+
+
+The normalization technique is important in GF calculations. For the numerical calculation, we have already normalized the final GFT to the signal, as shown in their definition (Equ.\eqref{Gnum}). So, in analytical GFT calculation, we should normalize the result with the equivalent amount. For the dipole approximation we used in our calculation, integrating the dipole source in the whole space can give
+\begin{equation}
+ \int_V \! \mathrm{d}\mathbf{r} \, \varepsilon(\mathbf{r})\mathbf{f}_{c\lambda}^*(\mathbf{r}) \cdot \mathbf{f}_{c'\lambda'}(\mathbf{r})=\mathbf{V}\delta_{\lambda\lambda'}\delta_{cc'},
+\label{normalization}
+\end{equation}
+where $\mathbf{f}_{c\lambda}$ is the orthogonal eigenvector of the mode $c\lambda$ of the cavity. Since we cannot integrate the result in the whole space, instead, we replace the cavity volume, $V$, with the effective mode volume, $V_{eff}$, in the right-hand side of Equ.\eqref{normalization}, and replace integrating operator with summing over all positions in a finite volume in practical calculations. The right-hand side of Equ.\eqref{normalization} is the source integral in volume V. If the mode is well normalized to the source as we do in numerical Green function calculations, the right-hand side of Equ.\eqref{normalization} becomes the unit number.
+
+The normalization process goes like this:
+
+First, we calculate the effective mode at the anti-node, whose absolute value is the maximum in the whole configuration:
+\begin{equation}
+ F_{antinode}=\sqrt{max(max(max(\sum_i{|E_i(\mathbf{r})|^2\varepsilon_i(\mathbf{r})})))},
+\end{equation}
+and pre-normalize the E-field by anti-node effective mode given as
+\begin{equation}
+ f_i^0(\mathbf{r})=\frac{E_i(\mathbf{r})}{F_{antinode}}, \quad i=x,y,z,
+\label{fi}
+\end{equation}
+where $E_i(\mathbf{r})$ is the E-field components read from the FDTD calculation at position $\mathbf{r}$.
+
+Then, we calculate the effective mode volume using the pre-normalized E-field:
+\begin{equation}
+ V_{e \! f\!\! f}= \sum_V{\sum_i{|f_i^0(\mathbf{r})|^2\varepsilon_i}}\mathrm{d}v=\frac{\sum_V{\sum_i{|E_i^0(\mathbf{r})|^2\varepsilon_i}}\mathrm{d}v}{F_{antinode}}, \quad i=x,y,z.
+\label{Veff}
+\end{equation}
+For the sake of convenience, we call the sum over interested volume $V$ as ``integral'' too, even though it is discrete calculation.
+
+Finally, we normalize the E-field components by $\sqrt{V_{e\!f\!f}}$ and $F_{antinode}$, or
+\begin{equation}
+ f_i(\mathbf{r})=\frac{f_i^0}{\sqrt{V_{e\!f\!\! f}}}=\frac{E_i(\mathbf{r})}{\sqrt{V_{e\!f\!\!f}}F_{antinode}}, \quad i=x,y,z.
+\label{fi}
+\end{equation}
+The final normalized mode as a function of $\mathbf{r}$ is
+\begin{equation}
+ \mathbf{f}(\mathbf{r})=f_x(\mathbf{r})\mathbf{e}_x+f_y(\mathbf{r})\mathbf{e}_y+f_z(\mathbf{r})\mathbf{e}_z.
+\label{f}
+\end{equation}
+
+To check if the normalization process works, one can substitute Equs.\eqref{fi},~\eqref{f} and~\eqref{Veff} into Equ.\eqref{normalization} to get
+\begin{equation}
+ \int_V \! \mathrm{d}\mathbf{r} \, \varepsilon(\mathbf{r})\mathbf{f}^*(\mathbf{r}) \cdot \mathbf{f}(\mathbf{r})
+= \frac{\sum_V{\sum_i{|E_i(\mathbf{r})|^2\varepsilon_i}}\mathrm{d}v}{V_{ef\!f}F_{antinode}^2}=1.
+\end{equation}
+which is what we expect to get for normalized modes.
+
+\section{Typical Calculation Steps using FDTD Solutions}
+To numerically calculate the bare cavity GFT, in practice, we can run the FDTD calculation to obtain the bare cavity mode in Lumerical~\cite{LumericalSolutions} and follow the steps below:
+
+\textbf{Step 1}: Setup the optical structure and boundary conditions of the required object and mesh grids in Lumerical.
+
+\textbf{Step 2}: Locate an $x$-oriented dipole source in the required position $\mathbf{r}_n$ (on grid) with optical moment $\mu_n^x$.
+The dipole moment can be fixed and read out, if we have set the pulse profile, width and center frequency of the dipole~\footnote{Although we place a ``dipole'' source in the cavity, the ``dipole'' in the FDTD simulation is not a real dipole which can interact with the cavity. The dipole source in FDTD simulation generates an initial electromagnetic field under pre-defined parameters for cavity mode calculation. The cavity mode can neither change any properties of the dipole source nor be scattered by the dipole.}. Also distribute proper time monitors and optional but recommended frequency monitors. Point monitors are sufficient in this stage. Then run the simulation.
+
+\textbf{Step 3}: Plot the curve of field as a function of frequency or wavelength from the frequency monitor in Lumerical.
+Identify the modes resonances corresponding to field intensity peaks in frequency domain. If there are no frequency monitors in the simulation,
+go directly to {\bf Step 4} and complete the Fourier transformation from the data of time monitor.
+If the modes can be identified clearly, one can lock the mode frequencies without the Fourier analysis,
+and perform further calculation with a narrower dipole bandwidth around the specified mode resonance.
+
+\textbf{Step 4}: Transform the generated *.fsp file into *.mat file by executing ``lum2mat *.fsp'' in a command terminal.
+Load required electric fields components at detected positions in time domain and do the Fourier transformation
+to both field points at $\mathbf{r}_n$ and $\mathbf{r}_d$ .
+%In Matlab, the following code may be useful:
+
+%\begin{center}
+%\begin{tabular}{c}
+%\begin{lstlisting}[framexrightmargin=-1.5cm]
+%% load the data in Matlab
+%load  data.mat
+%% read E(r,t)_x at the observation point as a column vector.
+%Ex_t=zeros(length(time_Ex),1);
+%Ex_t=squeeze(time_Ex);
+%% do FFT to time-domain detected E-field and dipole E-field (Pxt) with a fixed precision
+%Ex=ifft(Ext,precision_for_FFT);
+%Px=ifft(Pxt,precision_for_FFT);
+%\end{lstlisting}
+%\end{tabular}
+%\end{center}
+% where I have assumed the time monitor's name is ``time'', and the *.mat file is named as ``data.mat''.
+The field function of time can be either recorded from the local field of the dipole source or based on Equ.\eqref{def:dipleft}.
+
+\textbf{Step 5} Use Equ.\eqref{def:GFT} to get the $\mathbf{G}_{ix} (i=x, y, z)$
+(the first column of tensor $\mathbf{G}(\mathbf{r},\mathbf{r}_n, \omega)$).
+
+\textbf{Step 6}: Repeat steps 1-5 twice but re-orientate the dipole to $y$ and $z$ directions respectively,
+to get the other elements in $y$ and $z$ columns of the tensor $\mathbf{G}(\mathbf{r},\mathbf{r}_n, \omega)$.
+
+
+\bigskip
+\noindent \textbf{Note that:}
+
+\textbf{(1)} Here, the mode or electrical field should be normalized before performing \textbf{Step 5},
+in order to have a consistent scale throughout the calculations.
+For cases where the cavity mode is not well-defined, the electric field can be simply normalized to the maximum value in the calculation range.
+
+\textbf{(2)} Since different FDTD runs may have different time steps or simulation time length,
+transforming the time-monitored electric field to frequency domain with a fixed precision is a safe way
+to guarantee every field vector and matrix have the same sizes for later calculation.
+To perform a good Fourier transformation, it requires a long simulation period and a proper dipole trigger-off time.
+One can set a trial early-shutoff condition and
+make the dipole offset time be five times or more than the pulselength.
+
+\textbf{(3)} The analytical bare cavity GFT can be calculated using a mode monitor (see Appendix~\ref{App:analyticalGF}).
+%To obtain an estimated value of ${\rm Q}$ factor and related other quantities,
+%``Harminv'' can be used. analytical GF can also be used on a coarse FFT or frequency monitors can be used as well(see later sections).
+
+Two useful symmetry relations of Green Functions are \cite{Raabe2005},
+\begin{equation}
+\label{symG1}
+ G_{ij}^{*} \left(\br,\br',\omega\right) = G_{ij} \left(\br,\br',-\omega\right)
+\end{equation}
+\begin{equation}
+\label{symG2}
+ G_{ji} \left(\br',\br,\omega\right) = G_{ij} \left(\br,\br',\omega\right)
+\end{equation} 

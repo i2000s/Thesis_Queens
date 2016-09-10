@@ -1,0 +1,440 @@
+\chapter[Iterative \& Noniterative Methods]{Iterative and Noniterative Methods for GF Calculation}\label{App:GF}
+
+\section{Dyson Equations and Approaches to Solutions}
+For a N-dipole system, the Lippmann-Schiwinger form equations for the electric field operators are given by\cite{Wubs2004}:
+%
+\begin{subequations}
+\label{eq:ew1}
+\begin{align}
+\mathbf{\hat{E}}(\mathbf{r},\omega) =& \mathbf{\hat{E}}^{(0)}(\mathbf{r},\omega)\label{bareE0}\\
+&+ \sum_n{\mathbf{K}(\mathbf{r},\mathbf{r}_n,\omega)\cdot\hat{\mathbf{S}}_n(\omega)}\label{sourceE}\\
+&+ \sum_n{\mathbf{K}(\mathbf{r},\mathbf{r}_n,\omega)\cdot\mathbf{U}_n(\omega)\cdot\mathbf{\hat{E}}(\mathbf{r}_n,\omega)}\label{scatteringE}
+\end{align}
+\end{subequations}
+%
+\begin{equation}
+ =\mathbf{\hat{E}}^{(0)}(\mathbf{r},\omega)+ \mathbf{\hat{E}}_{source}(\mathbf{r},\omega)+\mathbf{\hat{E}}_{scatt}(\mathbf{r},\omega)\label{eq:E0sourcescatt},
+% This is an important equation.
+\end{equation}
+where the quantum Green functions $\Krrnw$ in the sense of the electromagnetic propagator actually act as background Green functions $\mathbf{G}^{(0)}$, and $\Erw$ are total electric field operators.
+Neglecting $\E0$ as it does not give out any information about the sources and their interactions with photons, and based on the approximation between classical GFTs and quantum GFTs, Equ.\eqref{eq:ew1} suggests that
+we can rewrite it as
+\begin{align}
+ \Erw=\sum_n{\GN(\rrn,\omega)\cdot \Alphanw \cdot \Enw0},  \label{E4GNS_app}
+\end{align}
+where the $\GN(\rr,\omega)$ contains the scattering properties
+of all $N$-dipole in the sample, and formally is the self-consistent solution to the Dyson equation~\cite{Martin1998} in the form
+\begin{equation}
+ \label{dysonGN}
+\GN(\rr,\omega)=\mathbf{G}^{(0)}(\rr,\omega)+\sum_n{\mathbf{G}^{(0)}(\rrn,\omega)\cdot \Alphanw \cdot \GN(\mathbf{r}_n,\mathbf{r}',\omega)}.
+\end{equation}
+
+For a source at any dipole positions$r'=r_i,\, i=1,2,3,\cdots,N$, and a detector at any given detected position $r$, $\GN(\rr,\omega)$ is only dependent on the bare GFTs among dipoles, which mathematically is in the form of $\GN(\mathbf{r}_i,\mathbf{r}_j,\omega)$ where $i$ and $j$ are the dipole sources' labels. So, if we can obtain the bare GFTs among all sources, we can easily get the GFTs at any detected position as we have known the background or non-interacting GFTs. Now, let us first solve $\GN(\mathbf{r}_i,\mathbf{r}_j,\omega)$, which can be derived from Equ.\eqref{dysonGN} as
+\begin{equation}
+\label{dysonGNij}
+ \GN(\mathbf{r}_i,\mathbf{r}_j,\omega)=\mathbf{G}^{(0)}(\mathbf{r}_i,\mathbf{r}_j,\omega)+\sum_n{\mathbf{G}^{(0)}(\mathbf{r}_i,\mathbf{r}_n,\omega)\cdot \Alphanw \cdot \GN(\mathbf{r}_n,\mathbf{r}_j,\omega)}.
+\end{equation}
+(Note: I will implicitly include the parameter $\omega$ in variables below, barring any special cases.)
+
+Or, we can rewrite equation (\ref{dysonGNij}) in a Matrix form for the dipole source labeled by $j$:
+\begin{equation}
+ \label{dysonMatGN}
+\left(\mathbf{C}^N_j\right)\cdot(\mathbf{G}^N _j)=(\mathbf{G}^{(0)} _j),
+\end{equation}
+where coefficient matrix $\left(\mathbf{C}^N_j\right)$ is
+{\tiny
+\begin{equation}
+-\begin{pmatrix}
+\Gb(\mathbf{r}_1,\mathbf{r}_1)\cdot {\bm \alpha}_1 & \cdots & \Gb(\mathbf{r}_1,\mathbf{r}_{j-1})\cdot {\bm \alpha}_{j-1} & \Gb(\mathbf{r}_1,\mathbf{r}_j)\cdot {\bm \alpha}_j-\eye & \Gb(\mathbf{r}_1,\mathbf{r}_{j+1})\cdot {\bm \alpha}_{j+1} & \cdots & \Gb(\mathbf{r}_1,\mathbf{r}_N)\cdot {\bm \alpha}_N\\
+           \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+\Gb(\mathbf{r}_1,\mathbf{r}_1)\cdot {\bm \alpha}_1 & \cdots & \Gb(\mathbf{r}_1,\mathbf{r}_{j-1})\cdot {\bm \alpha}_{j-1} & \Gb(\mathbf{r}_1,\mathbf{r}_j)\cdot {\bm \alpha}_j-\eye & \Gb(\mathbf{r}_1,\mathbf{r}_{j+1})\cdot {\bm \alpha}_{j+1} & \cdots & \Gb(\mathbf{r}_1,\mathbf{r}_N)\cdot {\bm \alpha}_N\\
+           \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+\Gb(\mathbf{r}_1,\mathbf{r}_1)\cdot {\bm \alpha}_1 & \cdots & \Gb(\mathbf{r}_1,\mathbf{r}_{j-1})\cdot {\bm \alpha}_{j-1} & \Gb(\mathbf{r}_1,\mathbf{r}_j)\cdot {\bm \alpha}_j-\eye & \Gb(\mathbf{r}_1,\mathbf{r}_{j+1})\cdot {\bm \alpha}_{j+1} & \cdots & \Gb(\mathbf{r}_1,\mathbf{r}_N)\cdot {\bm \alpha}_N\\
+\end{pmatrix},
+\end{equation}
+}
+
+The matrix $(\mathbf{G}^N_j)$ for source $j$ is
+\begin{equation}
+\begin{pmatrix}
+\GN(\mathbf{r}_1,\mathbf{r}_j)\\
+\GN(\mathbf{r}_2,\mathbf{r}_j)\\
+\GN(\mathbf{r}_3,\mathbf{r}_j)\\
+\vdots\\
+\GN(\mathbf{r}_N,\mathbf{r}_j)
+\end{pmatrix}.
+\end{equation}
+The matrix $(\mathbf{G}^{(0)}_j)$ for source $j$ is
+\begin{equation}
+\begin{pmatrix}
+\mathbf{G}^{(0)}(\mathbf{r}_1,\mathbf{r}_j)\\
+\mathbf{G}^{(0)}(\mathbf{r}_2,\mathbf{r}_j)\\
+\mathbf{G}^{(0)}(\mathbf{r}_3,\mathbf{r}_j)\\
+\vdots\\
+\mathbf{G}^{(0)}(\mathbf{r}_N,\mathbf{r}_j)
+\end{pmatrix}.
+\end{equation}
+Every element of these matrices can be a $3\times 3$ block matrix. After solving the linear equation \ref{dysonMatGN} for source $j$, we can continue similar operations on other sources and finally get the required GFTs from any source to any detecting locations.
+
+In this way, solving the Dyson equation is a procedure to diagonalize or invert a large matrix. However, this method is good for a fixed total number ($N$) of dipoles. If we want to trace the evolution of the Green function or spectra as $N$ varies, we need to diagonalize or invert matrices with difference sizes many times, and as $N$ increases this diagonalization or inversion procedure becomes harder. For example, if to trace a dipole coupling system with dipole sources number varying from $n=1,2,\cdots,N$, we may need to diagonalize or inverse $N^2$ times a $3n\times 3n$ element matrix (notice $n$ is varying). Since each operation consume different amount of memory, we need to dynamically manage our memory consuming strategy in order to optimize the calculation time, or need to limit the calculated $\omega$ points in case it is out of memory.
+
+Instead of solving Equ.\eqref{dysonGN} directly, we can also adopt an iterative
+scheme by rewriting a series of Dyson equations as
+\begin{equation}
+ \label{dysonGn}
+\Gn(\rr)=\Gm1(\rr)+{\Gm1(\rrn)\cdot {\bm \alpha}_n \cdot \Gn(\mathbf{r}_n,\mathbf{r}')}.
+\end{equation}
+for $1 \leq  n \leq  N$. Equ.\eqref{dysonGn} together with the symmetry relation Equ.\eqref{symG2} forms
+the basis of GFTS and our calculation procedure (at present, not using the symmetry relationship in Xiaodong's code) in which dipoles are
+added to the system one at a time in a self-consistent
+manner. To solve this series of equations, as above, we also first place the detector at the dipole positions. It gives
+\begin{equation}
+\label{dysonGnij}
+\Gn(\mathbf{r}_i,\mathbf{r}_j)=\Gm1(\mathbf{r}_i,\mathbf{r}_j)+{\Gm1(\mathbf{r}_i,\mathbf{r}_n)\cdot {\bm \alpha}_n\cdot \Gn(\mathbf{r}_n,\mathbf{r}_j)}.
+\end{equation}
+
+The detector positions $\mathbf{r}=\mathbf{r}_n$ are of special importance since the GFT in each of these cases contains also the scattering
+properties of dipole $n$ itself, which is what we initially update for every new iteration procedure. From Equ.\eqref{dysonGnij}, if we make $\mathbf{r}_i=\mathbf{r}_n$ for the $n$th iteration, we can calculate
+\begin{equation}
+\begin{split}
+\Gn(\mathbf{r}_n,\mathbf{r}_j) &=[{\mathbf{I}-\Gm1(\rnrn)\cdot {\bm \alpha}_n}]^{-1}\cdot [\Gm1(\mathbf{r}_n,\mathbf{r}_j)]\\
+            &=[{\mathbf{I}-\Gm1(\rnrn)\cdot {\bm \alpha}_n}]\setminus [\Gm1(\mathbf{r}_n,\mathbf{r}_j)],
+\end{split}
+\label{Gnself}
+\end{equation}
+where the denominator includes the dipole self-interaction. The notation of $\setminus$ indicates a left division operator on the tensors, where one first inverts the tensor on the left-hand-side of the $\setminus$ sign, and then applies a dot produce with the tensor on the right-hand-side of the $\setminus$ sign. We can vary $\mathbf{r}_j,\, j=1,2,\cdots,N$, and get all $\Gn(\mathbf{r}_n,\mathbf{r}_j)$ between different dipoles. Then substituting the results into Equ.\eqref{dysonGn} or Equ.\eqref{dysonGnij}, we can get all wanted GFTs from all dipoles to any positions, including the dipole positions, of course. On every iteration, we use the results produced on previous iteration and do inversions on $N$ $3\times 3$ matrices and multiply by another $3\times 3$ matrix. This is the method that has been developed by Martin {\it{et al}}. for the evaluation of the GFTs in the coupled dipole approximation \cite{Martin1994}.
+
+The advantage of the iterative approach is that on the way to getting the GFTs of $N$ dipoles system, it has already stored GFTs for any $n\leq N$ dipoles system. Mathematically, the total operations on solving the $N$ dipoles system through this approach is equal to that of solving Equ.\eqref{dysonGN} by diagonalizing or inverting a N-dipole matrix, yet needs less storage and hence is able to calculating more $\omega$ points. So, to trace the evolution of GFTs or other related parameters, directly solving Equ.\eqref{dysonGN} scheme is obviously harder and asking for more operations. Hence, it is convenient to trace the evolution of GFTs or other variables with growing dipole system scale. However, to trace the evolution, this approach will occupy more storage than the direct diagonalization method. Yet we can, of course, only store the final result for N-dipole GFTs to reduce the requirement of storage (random-access memory (RAM), in default) if we are only interested in a dipole system with fixed total dipole number. If the CPU time of inverting or diagonalizing a $3N\times3N$ matrix is faster than operating $N^2$ times inversion of a $3\times 3$ matrix, the disadvantage of the method of only-calculating a N-dipole system is that it possibly takes more CPU time to iterate N times if N is big enough. If $N$ is large enough ($N^2$ is larger than the number of discrete $\omega$ points, yet not breaking RAM's limit), then it will take a long period to complete the iterations. In this case, we should limit the frequency points or consider using the first scheme.
+
+Also notice that, all our discussions above (and most discussion later) actually do not include the effect of symmetry relationships, Equ.\eqref{symG2}. If taking the symmetry relationships into account, the calculation effort for both schemes will be reduced by one third for GFTs in 3-D space.
+
+
+
+\section{Equivalence of Different Schemes}
+Based on Equs.\eqref{dysonGN} and~\eqref{dysonGn}, there are two schemes for calculating GFTs for a many-dipole system. In this part, I will derive the analytical expressions of GFTs for a few-dipole system following these two schemes, and show the equivalence of them. Also, general iterative and non-iterative algorithms for the $N$-dipole coupled system will be obtained. To simplify notations, I will remove the ``brackets'' of superscriptions in the derivations below.
+
+\subsection{One-dipole system}
+
+If there is only one dipole source in the system, then Equs.\eqref{dysonGN} and~\eqref{dysonGn} are equivalent, and lead to the same form of equation, which is
+\begin{equation}
+\label{G1rr1}
+ \mathbf{G}^1(\mathbf{r},\mathbf{r}_1)=\mathbf{G}^{0}(\mathbf{r},\mathbf{r}_1)+{\mathbf{G}^{0}(\mathbf{r},\mathbf{r}_1)\cdot {\bm \alpha}_1 \cdot \mathbf{G}^1(\mathbf{r}_1,\mathbf{r}_1)}.
+\end{equation}
+If we force $\mathbf{r}=\mathbf{r}_1$, then
+\begin{equation}
+\label{G1r1r1}
+ \mathbf{G}^1(\mathbf{r}_1,\mathbf{r}_1)=[\eye-\mathbf{G}^{0}(\mathbf{r}_1,\mathbf{r}_1)\cdot {\bm \alpha}_1 ]^{-1}\cdot \mathbf{G}^{0}(\mathbf{r}_1,\mathbf{r}_1).
+\end{equation}
+Substituting the above equation into equation \ref{G1rr1}, we can easily get $ \mathbf{G}^1(\mathbf{r},\mathbf{r}_1)$ for a one dipole system.
+
+\subsection{Two-dipole system}
+\subsubsection{Non-iterative Scheme}\label{section:noniterativeGF}
+
+If we add another dipole source, we can get four equations based on Equ.\eqref{dysonGnij}:
+\begin{subequations}
+{\scriptsize
+\begin{align}
+ \mathbf{G}^2\left(\mathbf{r}_1,\mathbf{r}_1\right) &= \mathbf{G}^{0}\left(\mathbf{r}_1,\mathbf{r}_1\right) +  \mathbf{G}^{0}\left(\mathbf{r}_1,\mathbf{r}_1\right)\cdot {\bm \alpha}_1\cdot \mathbf{G}^2\left(\mathbf{r}_1,\mathbf{r}_1\right) + \mathbf{G}^{0}\left(\mathbf{r}_1,\mathbf{r}_2\right) \cdot {\bm \alpha}_2  \cdot \mathbf{G}^2\left(\mathbf{r}_2,\mathbf{r}_1 \right),  \label{eq:Gr1r1} \\
+\label{eq:Gr2r1}
+ \bG^2\left(\mathbf{r}_2,\mathbf{r}_1\right) &= \bG^0\left(\mathbf{r}_2,\mathbf{r}_1\right) + \bG^0\left(\mathbf{r}_2,\mathbf{r}_1\right)\cdot \balpha_1 \cdot \bG^2\left(\mathbf{r}_1,\mathbf{r}_1\right) + \bG^0\left(\mathbf{r}_2,\mathbf{r}_2\right)\cdot \balpha_2\cdot \bG^2\left(\mathbf{r}_2,\mathbf{r}_1\right),\\
+\label{eq:Gr1r2}
+ \bG^2\left(\mathbf{r}_1,\mathbf{r}_2\right) &= \bG^0\left(\mathbf{r}_1,\mathbf{r}_2\right) + \bG^0\left(\mathbf{r}_1,\mathbf{r}_1\right)\cdot \balpha_1\cdot \bG^2\left(\mathbf{r}_1,\mathbf{r}_2\right) + \bG^0\left(\mathbf{r}_1,\mathbf{r}_2\right)\cdot \balpha_2 \cdot \bG^2\left(\mathbf{r}_2,\mathbf{r}_2\right),\\
+\label{eq:Gr2r2}
+ \bG^2\left(\mathbf{r}_2,\mathbf{r}_2\right) &= \bG^0\left(\mathbf{r}_2,\mathbf{r}_2\right) + \bG^0\left(\mathbf{r}_2,\mathbf{r}_1\right) \cdot \balpha_1\cdot \bG^2\left(\mathbf{r}_1,\mathbf{r}_2\right) +  \bG^0\left(\mathbf{r}_2,\mathbf{r}_2\right)\cdot\balpha_2\cdot \bG^2\left(\mathbf{r}_2,\mathbf{r}_2\right) \,.
+\end{align}}
+\end{subequations}
+Now, solving for the GFTs from source 1, which corresponds to Equs.\eqref{eq:Gr1r1} and~\eqref{eq:Gr2r1}, we have
+\begin{equation}
+\label{G211_1}
+\begin{aligned}
+\bG^2(\br_1,\br_1) &=[\eye-\bG^0(\br_1,\br_1)\cdot \balpha_1]^{-1}\cdot [\bG^0(\br_1,\br_1)+\bG^0(\br_1,\br_2)\cdot \balpha_2\cdot \bG^2(\br_2,\br_1)] \\
+ &= \bG^1_1(\br_1,\br_1)+\bG^1_1(\br_1,\br_2)\cdot\balpha_2\cdot \bG^2(\br_2,\br_1),
+\end{aligned}
+\end{equation}
+where
+\begin{equation}
+\label{Gi1}
+\bG^i_1(\br_m,\br_n)=[\eye-\bG^{i-1}(\br_m,\br_m)\cdot\balpha_m]^{-1}\cdot \bG^{i-1}(\br_m,\br_n),
+\end{equation}
+which is one dipole scattering process in a 1-dipole system.
+Now, we substitute Equ.\eqref{G211_1} into Equ.\eqref{eq:Gr2r1} to give
+%\begin{equation}
+\begin{align}
+\bG^2(\br_2,\br_1) &= [\eye-\bG^0(\br_2,\br_2)\cdot \balpha_2]^{-1}\cdot [\bG^0(\br_2,\br_1)+\bG^0(\br_2,\br_1)\cdot \balpha_1\cdot \bG^2(\br_1,\br_1)] \\
+ &= \bG^1_1(\br_2,\br_1)+\bG^1_1(\br_2,\br_1)\cdot\balpha_1\cdot \bG^2(\br_1,\br_1)\\
+ &=\bG^1_1(\br_2,\br_1)+\bG^1_1(\br_2,\br_1)\cdot\balpha_1\cdot [\bG^1_1(\br_1,\br_1)+\bG^1_1(\br_1,\br_2)\cdot\balpha_2\cdot \bG^2(\br_2,\br_1)],
+\end{align}
+%\end{equation}
+such that
+%\begin{equation}
+\begin{align}
+\bG^2(\br_2,\br_1) &= [\eye-\bG^1_1(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_2)\cdot \balpha_2]^{-1}\cdot [\bG^1_1(\br_2,\br_1)+\bG^1_1(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_1)]. \label{G221_2}
+\end{align}
+%\end{equation}
+
+Similarly, from Equ.\eqref{eq:Gr2r1}, we have
+\begin{equation}
+\bG^2(\br_2,\br_1) =\bG^1_1(\br_2,\br_1)+\bG^1_1(\br_2,\br_1)\cdot \balpha_1 \cdot \bG^2(\br_1,\br_1).
+\end{equation}
+Substituting into Equ.\eqref{eq:Gr1r1}, we obtain
+\begin{equation}
+\bG^2(\br_1,\br_1)=\bG^1_1(\br_1,\br_1)+\bG^1_1(\br_1,\br_2)\cdot \balpha_2\cdot [\bG^1_1(\br_2,\br_1)+\bG^1_1(\br_2,\br_1)\cdot \balpha_1 \cdot \bG^2(\br_1,\br_1)],
+\end{equation}
+and finally
+\begin{equation}
+\label{G211_2}
+\bG^2(\br_1,\br_1)=[\eye-\bG^1_1(\br_1,\br_2)\cdot \balpha_2\cdot \bG^1_1(\br_2,\br_1)\cdot\balpha_1]^{-1}\cdot [\bG^1_1(\br_1,\br_1)+ \bG^1_1(\br_1,\br_2)\cdot \balpha_2\cdot \bG^1_1(\br_2,\br_1)].
+\end{equation}
+
+We can solve Equs.\eqref{eq:Gr1r2} and~\eqref{eq:Gr2r2} for dipole source 2 in the same way and obtain
+\begin{equation}
+\label{G212_2}
+\begin{split}
+\bG^2(\br_1,\br_2)&=[\eye-\bG^1_1(\br_1,\br_2)\cdot \balpha_2\cdot \bG^1_1(\br_2,\br_1)\cdot\balpha_1]^{-1}\\
+&\quad \cdot [\bG^1_1(\br_1,\br_2)+ \bG^1_1(\br_1,\br_2)\cdot \balpha_2\cdot \bG^1_1(\br_2,\br_2)],
+\end{split}
+\end{equation}
+and
+\begin{equation}
+\label{G222_2}
+\begin{split}
+\bG^2(\br_2,\br_2)&=[\eye-\bG^1_1(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_2)\cdot\balpha_2]^{-1}\\
+&\quad \cdot [\bG^1_1(\br_2,\br_2)+ \bG^1_1(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_2)].
+\end{split}
+\end{equation}
+Equs.\eqref{G211_2},~\eqref{G221_2},~\eqref{G212_2} and~\eqref{G222_2} completely described the interaction between dipole source 1 and 2. For a detector located at $\br=\br_i$, we can use Equ.\eqref{dysonGN} to generalize the expression of GFTs from an arbitrary dipole source $j$ to the detector as
+\begin{equation}
+\label{G2ij_2}
+\begin{aligned}
+\bG^2(\br_i,\br_j) &=[\eye-\bG^1_1(\br_i,\br_{(3-i)})\cdot \balpha_{(3-i)}\cdot \bG^1_1(\br_{(3-i)},\br_i)\cdot\balpha_i]^{-1}\\
+&\quad \cdot [\bG^1_1(\br_i,\br_j)+ \bG^1_1(\br_i,\br_{(3-i)})\cdot \balpha_{(3-i)}\cdot \bG^1_1(\br_{(3-i)},\br_j)].
+\end{aligned}
+\end{equation}
+Using Equ.\eqref{dysonGNij}, we can get
+\begin{equation}
+ \label{G2rrj_2}
+\begin{aligned}
+\bG^2(\br,\br_j) &=\mathbf{G}^{0}(\br,\br_j)+\mathbf{G}^{0}(\br,\br_1)\cdot \balpha_1 \cdot \bG^2(\mathbf{r}_1,\mathbf{r}_j)+\bG^0(\br,\br_2)\cdot \balpha_2\cdot \bG^2(\br_2,\br_j)\\
+&=\mathbf{G}^{0}(\br,\br_j)\\
+&\quad + \mathbf{G}^{0}(\br,\br_1)\cdot \balpha_1 \cdot [\eye-\bG^1_1(\br_1,\br_{2})\cdot \balpha_{2}\cdot \bG^1_1(\br_{2},\br_1)\cdot\balpha_1]^{-1}\\
+&\quad \quad \cdot [\bG^1_1(\br_1,\br_j)+ \bG^1_1(\br_1,\br_{2})\cdot \balpha_{2}\cdot \bG^1_1(\br_{2},\br_j)]\\
+&\quad +\bG^0(\br,\br_2)\cdot \balpha_2\cdot [\eye-\bG^1_1(\br_2,\br_{1})\cdot \balpha_{1}\cdot \bG^1_1(\br_{1},\br_2)\cdot\balpha_2]^{-1}\\
+&\quad \quad \cdot [\bG^1_1(\br_2,\br_j)+ \bG^1_1(\br_2,\br_{1})\cdot \balpha_{1}\cdot \bG^1_1(\br_{1},\br_j)],
+\end{aligned}
+\end{equation}
+where $j=1,2$ is the label of dipole sources, and $\br$ can be at any detected places.
+
+
+\subsubsection{Iterative Scheme}\label{section:GFiterative}
+
+We can also derive the above results using the iterative scheme, based on Equ.\eqref{dysonGn}. Now let us start from $n=1$, and number this iteration step as ``Step 1''.
+
+{\textbf {Step 1.1:}} First we consider the $\bG^1$s detected at dipole source 1 with two dipole sources in total.
+Equ.\eqref{dysonGnij} gives
+\begin{subequations}
+\begin{align}
+\mathbf{G}^1(\mathbf{r}_1,\mathbf{r}_1)
+&= \mathbf{G}^{0}(\br_1,\br_1)+{\mathbf{G}^{0}(\mathbf{r}_1,\mathbf{r}_1) \cdot \balpha_1\cdot \mathbf{G}^1(\mathbf{r}_1,\mathbf{r}_1)},\\
+\mathbf{G}^1(\mathbf{r}_1,\mathbf{r}_2)
+&= \mathbf{G}^{0}(\br_1,\br_2)+{\mathbf{G}^{0}(\mathbf{r}_1,\mathbf{r}_1) \cdot \balpha_1\cdot \mathbf{G}^1(\mathbf{r}_1,\mathbf{r}_2)}.
+\end{align}
+\end{subequations}
+Hence
+\begin{subequations}
+\begin{align}
+\mathbf{G}^1(\mathbf{r}_1,\mathbf{r}_1)
+&= [\eye- \mathbf{G}^{0}(\mathbf{r}_1,\mathbf{r}_1) \cdot \balpha_1]^{-1}\cdot \mathbf{G}^{0}(\br_1,\br_1)=\bG^1_1(\br_1,\br_1),\\
+\mathbf{G}^1(\mathbf{r}_1,\mathbf{r}_2)
+&= [\eye- \mathbf{G}^{0}(\mathbf{r}_1,\mathbf{r}_1) \cdot \balpha_1]^{-1}\cdot \mathbf{G}^{0}(\br_1,\br_2)=\bG^1_1(\br_1,\br_2),
+\end{align}
+\end{subequations}
+where the definition of $\bG^i_1$ in Equ.\eqref{Gi1} is used.
+
+{\bf{Step 1.2:}} Now substitute the above results into Equ.\eqref{dysonGn}, and for any detected position $\br$
+\begin{equation}
+\label{G1rr}
+\begin{aligned}
+\mathbf{G}^1(\mathbf{r},\mathbf{r}_j) &=\mathbf{G}^{0}(\br,\br_j)+{\mathbf{G}^{0}(\mathbf{r},\mathbf{r}_1) \cdot \balpha_1\cdot \mathbf{G}^1(\mathbf{r}_1,\mathbf{r}_j)} \\
+&= \mathbf{G}^{0}(\br,\br_j)+{\mathbf{G}^{0}(\mathbf{r},\mathbf{r}_1) \cdot \balpha_1\cdot \mathbf{G}^1_1(\mathbf{r}_1,\mathbf{r}_j)},\quad j=1,2.
+\end{aligned}
+\end{equation}
+
+{\bf{Step 1.3:}} Now for the detector at $\br=\br_2$, Equ.\eqref{G1rr} gives
+\begin{subequations}
+\begin{align}
+\mathbf{G}^1(\mathbf{r}_2,\mathbf{r}_1)
+&= \mathbf{G}^{(0)}(\br_2,\br_1)+{\mathbf{G}^{(0)}(\mathbf{r}_2,\mathbf{r}_1) \cdot \balpha_1\cdot \mathbf{G}^1_1(\mathbf{r}_1,\mathbf{r}_1)},\label{G121_2}\\
+\mathbf{G}^1(\mathbf{r}_2,\mathbf{r}_2)
+&=\mathbf{G}^{(0)}(\br_2,\br_2)+{\mathbf{G}^{(0)}(\mathbf{r}_2,\mathbf{r}_1) \cdot \balpha_1\cdot \mathbf{G}^1_1(\mathbf{r}_1,\mathbf{r}_2)}.\label{G122_2}
+\end{align}
+\end{subequations}
+
+{\textbf {Step 2.1:}} For $n=2$ with the detector at the second dipole source.
+Equ.\eqref{dysonGnij} gives
+\begin{subequations}
+\begin{align}
+\mathbf{G}^2(\mathbf{r}_2,\mathbf{r}_1)
+&= \mathbf{G}^1(\br_2,\br_1)+{\mathbf{G}^1(\mathbf{r}_2,\mathbf{r}_2) \cdot \balpha_2\cdot \mathbf{G}^2(\mathbf{r}_2,\mathbf{r}_1)},\\
+\mathbf{G}^2(\mathbf{r}_2,\mathbf{r}_2)
+&= \mathbf{G}^1(\br_2,\br_2)+{\mathbf{G}^1(\mathbf{r}_2,\mathbf{r}_2) \cdot \balpha_2\cdot \mathbf{G}^2(\mathbf{r}_2,\mathbf{r}_2)}.
+\end{align}
+\end{subequations}
+Hence
+\begin{subequations}
+\begin{align}
+\mathbf{G}^2(\mathbf{r}_2,\mathbf{r}_1)
+&= [\eye- \mathbf{G}^1(\mathbf{r}_2,\mathbf{r}_2) \cdot \balpha_2]^{-1}\cdot \mathbf{G}^1(\br_2,\br_1)\nonumber \\
+&=[\eye- [\mathbf{G}^{(0)}(\mathbf{r}_2,\mathbf{r}_2)+\bG^0(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_2)] \cdot \balpha_2]^{-1}\nonumber \\
+&\quad \cdot [\mathbf{G}^{(0)}(\br_2,\br_1)+\bG^0(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_1)]\nonumber \\
+&=\left\{ [\eye- \mathbf{G}^{(0)}(\mathbf{r}_2,\mathbf{r}_2)\cdot \balpha_2]\cdot [\eye-\bG^1_1(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_2) \cdot \balpha_2]\right\}^{-1}\nonumber \\
+&\quad \cdot [\mathbf{G}^{(0)}(\br_2,\br_1)+\bG^0(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_1)]\nonumber \\
+&=\left[\eye-\bG^1_1(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_2) \cdot \balpha_2\right]^{-1}\cdot[\eye- \mathbf{G}^{(0)}(\mathbf{r}_2,\mathbf{r}_2)\cdot \balpha_2]^{-1}\nonumber \\
+&\quad \cdot [\mathbf{G}^{(0)}(\br_2,\br_1)+\bG^0(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_1)]\nonumber \\
+&=\left[\eye-\bG^1_1(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_2) \cdot \balpha_2\right]^{-1}\nonumber \\
+&\quad \cdot [\mathbf{G}^1_1(\br_2,\br_1)+\bG^1_1(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_1)], \label{G221_3}\\
+\mathbf{G}^2(\mathbf{r}_2,\mathbf{r}_2)
+&= [\eye- \mathbf{G}^1(\mathbf{r}_2,\mathbf{r}_2) \cdot \balpha_2]^{-1}\cdot \mathbf{G}^1(\br_2,\br_2)\nonumber \\
+&=[\eye- [\mathbf{G}^{(0)}(\mathbf{r}_2,\mathbf{r}_2)+\bG^0(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_2)] \cdot \balpha_2]^{-1}\nonumber \\
+&\quad \cdot [\mathbf{G}^{(0)}(\br_2,\br_2)+\bG^0(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_2)]\nonumber \\
+&=\left[\eye-\bG^1_1(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_2) \cdot \balpha_2\right]^{-1}\cdot[\eye- \mathbf{G}^{(0)}(\mathbf{r}_2,\mathbf{r}_2)\cdot \balpha_2]^{-1}\nonumber \\
+&\quad \cdot [\mathbf{G}^{(0)}(\br_2,\br_2)+\bG^0(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_2)]\nonumber \\
+&=\left[\eye-\bG^1_1(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_2) \cdot \balpha_2\right]^{-1}\nonumber \\
+&\quad \cdot [\mathbf{G}^1_1(\br_2,\br_2)+\bG^1_1(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_2)].\label{G222_3}
+\end{align}
+\end{subequations}
+I have used the relationships  $(\mathbf{A}\cdot\mathbf{B})^{-1}=\mathbf{B}^{-1}\cdot \mathbf{A}^{-1}$ and Equ.\eqref{Gi1}.
+Alternatively, Equs.\eqref{G221_3} and~\eqref{G222_3} can be generalized into one equation,
+%\begin{equation}
+\begin{align}
+ \mathbf{G}^2(\mathbf{r}_2,\mathbf{r}_j)
+&=\left[\eye-\bG^1_1(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_2) \cdot \balpha_2\right]^{-1} \\
+&\quad \cdot [\mathbf{G}^1_1(\br_2,\br_j)+\bG^1_1(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_j)],\quad j=1,2.\label{G22r_3}
+\end{align}
+%\end{equation}
+
+
+{\bf{Step 2.2:}} Now substitute the above results into Equ.\eqref{dysonGn},
+\begin{equation}
+\label{G2rr}
+\begin{aligned}
+\mathbf{G}^2(\mathbf{r},\mathbf{r}_j) &=\mathbf{G}^1(\br,\br_j)+{\mathbf{G}^1(\mathbf{r},\mathbf{r}_2) \cdot \balpha_2\cdot \mathbf{G}^2(\mathbf{r}_2,\mathbf{r}_j)} \\
+&= \mathbf{G}^1(\br,\br_j)+\mathbf{G}^1(\mathbf{r},\mathbf{r}_2) \cdot \balpha_2\cdot \left[\eye-\bG^1_1(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_2) \cdot \balpha_2\right]^{-1} \\
+&\quad \cdot [\mathbf{G}^1_1(\br_2,\br_j)+\bG^1_1(\br_2,\br_1)\cdot \balpha_1\cdot \bG^1_1(\br_1,\br_j)],\quad j=1,2.
+\end{aligned}
+\end{equation}
+
+Notice that the Equs.\eqref{G221_3} and~\eqref{G222_3} right above are exactly identical to Equs.\eqref{G221_2} and~\eqref{G222_2}, which are obtained by non-iterative scheme.
+
+The iterative and non-iterative algorithms for $N$-dipole coupled system can be generalized by looping the steps above to $N$.
+
+\subsection{Another Derivation}\label{section:GFscalar}
+In Dyson Equation (Equ.\eqref{dysonGn}), we can change the sequence of $\br$ and $\mathbf{r}_n$ in expression $\Gm1 (\br,\mathbf{r}_n)\mathbf{\alpha}_n\Gn(\mathbf{r}_n,\br')$ and simplify part of the tensor calculation as a scalar calculation. Such that we have to prove
+\begin{equation}
+ \label{Gtensor_scalar}
+\Gm1(\br,\br_n)\cdot e_n \otimes e_n \cdot \Gn(\br_n,\br')=e_n\cdot \Gm1 (\br_n,\br)\cdot e_n\cdot \Gn(\br_n,\br'),
+\end{equation}
+where $e_n\cdot \Gm1 (\br_n,\br)\cdot e_n$ gives a scalar rather than a tensor.
+Now, we consider the $i,j$ element of both sides of Equ.\eqref{Gtensor_scalar}.
+
+The left-hand side gives
+\begin{equation}
+ \label{Gtensor_scalar_left}
+\sum_{u,v}{{G^{n-1}_{i,u}(\br,\br_n)e_u e_v G^n_{vj}(\br_n,\br')}},
+\end{equation}
+and the right-hand side gives
+\begin{equation}
+ \label{Gtensor_scalar_right}
+\sum_{u,v}{e_u G^{n-1}_{uv}(\br,\br_n)e_v G^n_{ij}(\br_n,\br')},
+\end{equation}
+where $e_i$ is the element of the unit dipole polarization vector $\en$, and I have used the relationship
+\begin{equation}
+ \en\cdot \mathbf{G}(\br_n,\br)=\mathbf{G}(\br,\br_n)\cdot \en.
+\end{equation}
+It is easy to show that
+\begin{equation}
+\mathbf{G}\cdot
+{\bf d}_n(\omega)=\mathbf{G}\cdot
+\mathbf{e}_n \, d_n(\omega),
+\end{equation}
+and
+\begin{equation}
+\mathbf{G}\cdot \balpha_n(\omega)={\bf e}_n \cdot\mathbf{G}\cdot {\bf e}_n\,\alpha_n(\omega),
+\end{equation}
+where $\mathbf{G}$ is any GFT. Following these two equations above, one can obtain the GFT with one dipole projected in ${\bf e}_n$ direction from Equ.\eqref{G1rr1} to be
+\begin{equation}
+\mathbf{G}^1(\br,\br_1)\cdot {\bf e}_1 =\frac{\mathbf{G}^0(\mathbf{r},\mathbf{r}_1)\cdot
+\mathbf{e}_1 }{[\eye-{\bf e}_1
+\cdot\mathbf{G}^0(\mathbf{r}_1,\mathbf{r}_1)\cdot {\bf
+e}_1\,\alpha_1(\omega)]},
+\end{equation}
+where the division operator here is defined as a left division operator (same to the usage below in this section).
+Equ.\eqref{E4GNS_0} leads to the one-dipole E-field projected in the ${\bf e}_1$ direction
+\begin{equation}
+\hat{E}^1
+(\mathbf{r}_1,\omega)=\frac{{\bf e}_1
+\cdot\mathbf{G}^0(\mathbf{r}_1,\mathbf{r}_1)\cdot
+\mathbf{e}_1 \, \hat{d}_1(\omega)}{[\eye-{\bf e}_1
+\cdot\mathbf{G}^0(\mathbf{r}_1,\mathbf{r}_1)\cdot {\bf e}_1
+\, \alpha_1(\omega)]}.
+\end{equation}
+The exact solution for the one-dipole E-field can be given by~\cite{Yao2009a}
+\begin{equation}
+\mathbf{\hat{E}}^1(\mathbf{r},\omega)=\frac{\mathbf{G}^0(\mathbf{r},\mathbf{r}_1)\cdot
+\mathbf{e}_1 \, \hat d_1(\omega)}{[\eye-{\bf e}_1
+\cdot\mathbf{G}^0(\mathbf{r}_1,\mathbf{r}_1)\cdot {\bf
+e}_1\,\alpha_1(\omega)]}=\mathbf{G}^1_1(\mathbf{r},\mathbf{r}_1)\cdot
+{\bf e}_1 \, \hat d_1(\omega),
+\end{equation}
+where
+\begin{align}
+\mathbf{G}^1_1(\br,\br_1) &=[\eye-{\bf e}_1
+\cdot\mathbf{G}^0(\mathbf{r}_1,\mathbf{r}_1)\cdot {\bf
+e}_1\,\alpha_1(\omega)]^{-1}\cdot {\mathbf{G}^0(\mathbf{r},\mathbf{r}_1) }\\
+&=[\eye-\mathbf{G}^0(\mathbf{r}_1,\mathbf{r}_1)\cdot \balpha_1(\omega)]^{-1}\cdot{\mathbf{G}^0(\mathbf{r},\mathbf{r}_1) }.
+\end{align}
+Based on the method and solutions above, one can obtain the projections of GFTs on the dipole moment vectors for a system with $N$ dipoles;
+consequently, one obtains the exact E-field including $N$ dipoles.
+
+If we have $N$ dipoles in the cavity, we will have $N$ coupled equations to solve the E-field from every dipole source. Every equation is the result of Equ.\eqref{E4GNS_0} by substituting $\br=\br_i\,(i=1,2,\cdots, N)$, which gives
+\begin{align}
+ \label{E4GNS_i}
+ \hat{\mathbf{E}}^{(N)}(\mathbf{r}_i,\omega) &=\frac{1}{\varepsilon_0}\sum_{n=1}^N{\mathbf{G}^{(0)}(\br_i,\br_n,\omega)\cdot \dnw} \\
+ &\quad +\sum_{n=1}^N{\mathbf{G}^{(0)}(\br_i,\br_n,\omega)\cdot \Alphanw \cdot \hat{\mathbf{E}}^{(N)}(\mathbf{r}_n,\omega)}.
+\end{align}
+Note that, to solve these equations, we need initially to project the operators on the given initial states to obtain the $N$ equations of expectation values; next, we may need to invert a large matrix, each entry of which is the tensor of a GF as a function of $\omega$. To obtain the E-field expectation value at every dipole in a range of frequencies, we need to invert the matrix many times, at each frequency point. After the calculation of the expectation values of the E-field at all dipoles, one can get the expectation value of the E-field at the detection position. One may use the projection technique demonstrated above to save computational resources. However, if $N$ and the number of frequent points are large, the data storage and the operation of inverting all matrices may be out of memory.
+
+Moreover, if we want to calculate the spectra or the expectation values of E-field operators including various number of dipoles,
+we need to calculate each case separately--there is no explicit relationship between the values with different dipole number, $N$. While in our study we need to calculate the spectra with different $N$. This fact makes this approach of calculating spectrum through calculating $\hat{\mathbf{E}}^{(N)}(\mathbf{r},\omega)$ costly or unfeasible. In the thesis,
+we focus on the roadmap of calculating $\mathbf{G}^{(N)}(\br,\br_n,\omega)$ as our computers permit.
+%According to the derivation above, the left-hand side is not equal to the right-hand side explicitly... If we make a projection on $\en$ for both sides of \ref{Gtensor_scalar}, everything is fine.
+
+%One question may be asked: is this projection algorithm as efficient as the other algorithms? Notice that we have to consume N times RAM to store all projections for each GFT in practical calculation, which will finally reduce the tolerance of calculated dipoles number or elongate CPU time for full computation of all GFTs. I did not exam this algorithm. It may be examined as a future work, if needed.
+
+
+
+% \section{Documentation}
+%
+% \paragraph*{\large Package: \texttt{alloy.api}}
+%
+%     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     % AlloyRunner
+%     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     \begin{singlespacing}
+%     \begin{center}
+%     \begin{tabularx}{\linewidth}{|l|X|} \hline
+%     \multicolumn{2}{|p{420pt}|}{\texttt{\large AlloyRunner}} \\ \hline \hline
+%
+%     \multicolumn{2}{|p{420pt}|}{\small This class provides...} \\
+%     \multicolumn{2}{|p{420pt}|}{} \\
+%     \multicolumn{2}{|p{420pt}|}{\small To do an analysis...}\\ \hline \hline
+%
+%     {\small \texttt{analyzeCommand}} & {\small Run the actual...} \\ \hline
+%
+%     {\small \texttt{prepareSpec}} & {\small Parse...} \\ \hline
+%
+%     {\small \texttt{translateCommand}} & {\small Translate...} \\
+%     \hline
+%
+%     \end{tabularx}
+%     \end{center}
+%     \end{singlespacing}

@@ -1,0 +1,549 @@
+% Queen's Thesis Format
+% (Borrowed from Dean Jin's BigDis.tex file, then heavily modified :)
+
+% Michelle L. Crane, Queen's University, 2003
+
+%*************************************************************************************************************
+% DOCUMENT STYLE
+%*************************************************************************************************************
+\documentclass[12pt]{report}
+%-------------------------------------------------------------------------------------------------------------
+\usepackage{quthesis}        % the Queen's University dissertation style file
+                             % Note:  In my thesis, I had many Listings, so I
+                             % tweaked the old quthesis sty file to create a
+                             % List of Listings in the table of contents.
+                             % However, this version of quthesis does *not*
+                             % include these modifications.
+
+%I don't even use the fancyheadings - it looks nice enough without it
+%\usepackage{fancyheadings}  % doesn't seem to change the headings at all!
+%*************************************************************************************************************
+
+
+%*************************************************************************************************************
+% SPACING
+%*************************************************************************************************************
+\usepackage{setspace}        % for use of \singlespacing and \doublespacing
+%*************************************************************************************************************
+
+
+%*************************************************************************************************************
+% VERBATIM
+%*************************************************************************************************************
+\usepackage{moreverb}        % Using this package to get better control of the
+                             % verbatim environment, mostly for the use of the
+                             % listing environment which puts line number
+                             % beside each line.  Note that there has to be a number
+                             % in each set of brackets, i.e., \begin{listing}[1]{1}.
+                             % PDF info file is "The moreverb package" by
+                             % Robin Fairbairns (rf@cl.cam.ac.uk) after
+                             % Angus Duggan, Rainer Schopf and Victor Eijkhout, 2000/06/29.
+%-------------------------------------------------------------------------------------------------------------
+%\usepackage{verbatim}        % allows the use of \begin{comment} and \end{comment}
+                             % as well as \verbatiminput{file}
+                             % Note:  when using verbatim to input from a text file,
+                             % such as a specification or code, use \begin{singlespacing}
+                             % and \end{singlespacing}.  Also, tabs are not read
+                             % properly, so the input file must only use spaces.
+
+%                             \begin{comment}
+%                             Can also use the verbatim package for
+%                             comments like this...
+%                             \end{comment}
+%*************************************************************************************************************
+
+
+%*************************************************************************************************************
+% GLOSSARY
+% Using a glossary is more than beginners need to know; leaving the packages, etc. here for now.
+%*************************************************************************************************************
+\usepackage[refpages]{gloss}  % for my glossary
+                              % refpages shows the first page where the term occurs
+
+%-------------------------------------------------------------------------------------------------------------
+% Tell Latex to make a glossary
+\makegloss
+
+% These commands clean up the glossary - make the headings nice, and
+% make the names stay in the right font.
+
+% This command changes the way that the page reference number is
+% shown.  In this case "See Page..." in brackets.
+\renewcommand{\glosspage}[1]{ \emph{Page~#1.}}
+
+% This command sets the glossary label to be the "word" in the
+% glossary definition.  The #2 stands for the word.  #3 would be
+% the definition, and #1 is the short form (I think).  If I comment
+% out this command, then the labels are in a different font.
+%\setglosslabel{#2}
+
+% This command sets the glossary label to be the word, in bold, followed
+% by the short form in brackets, if it exists.  This is where I can
+% change the font to something else if desired.
+\setglosslabel{\bfseries#1\ifglossshort{ (#3)}{}}
+
+% This would be where I make changes to how the headings go.  For
+% example, here the heading can be centered.
+%\renewcommand{\glossheading}[1]{%
+%    \stopglosslist %
+%    \vspace{1pc}%
+%    {\large\centering\bfseries#1\par}}
+
+% This command will print the contents of the glossary, without
+% headings between each letter.
+\renewcommand{\glossheading}[1]{}
+
+% Make changes to the environment, but I don't know exactly
+% what it does...
+%\renewenvironment{glosslist}
+%    {\begin{description}}
+%    {\end{description}}
+%*************************************************************************************************************
+
+
+%*************************************************************************************************************
+% INDEX
+% Also possible to make an index; didn't use for my thesis.
+%*************************************************************************************************************
+\usepackage{makeidx}         % to make the index
+%-------------------------------------------------------------------------------------------------------------
+% Tell Latex to make an index
+\makeindex
+%*************************************************************************************************************
+
+
+%*************************************************************************************************************
+% MATH STUFF
+%*************************************************************************************************************
+\usepackage{amsmath,amssymb}         % to make nice equations
+%-------------------------------------------------------------------------------------------------------------
+\usepackage{amsthm}          % to make nice theorem, i.e., definition
+
+% Using the amsthm package, define a new theorem environment for my
+% definition.  * means don't number it.
+\newtheorem*{definition}{Definition}
+%-------------------------------------------------------------------------------------------------------------
+\usepackage{cases}           % to make numbered cases (equations)
+%-------------------------------------------------------------------------------------------------------------
+\usepackage{calc}            % Used with the Ventry environment defined below.
+%*************************************************************************************************************
+
+
+%*************************************************************************************************************
+% FLOATS AND FIGURES % declared later
+%*************************************************************************************************************
+%\usepackage{graphicx}        % for graphic images (use \includegraphics[...]{file.eps})
+%-------------------------------------------------------------------------------------------------------------
+\usepackage{tocloft}% for table of figures/tables/content
+       \setlength{\cftfignumwidth}{3em}
+%       \renewcommand{\cftchapfont}{Chapter }
+%\usepackage{subfigure}% for subfigures (figures within figures)
+%-------------------------------------------------------------------------------------------------------------
+\usepackage{boxedminipage}   % to make boxed minipages, i.e., boxes around figures
+%-------------------------------------------------------------------------------------------------------------
+\usepackage{rotate}          % for use of \begin{sideways} and \end{sideways}
+%-------------------------------------------------------------------------------------------------------------
+\usepackage{float}           % Using this package to get better control of my floats
+                             % including the ability to define new float types for
+                             % my specification and code listings.
+                             % DVI info file is "An Improved Environment for Floats"
+                             % by Anselm Lingnau, lingnau@tm.informatik.uni=frankfurt.de
+                             % 1995/03/29.
+
+% Define new float styles here
+% Ruled style for examples
+%\floatstyle{ruled}
+%\newfloat{Example}{h}{lop}[chapter]
+
+% Style of float used for code listings
+\usepackage{listings} % this line is added by Xiaodong for self-defined code listing
+\floatstyle{ruled}
+\newfloat{Listing}{H}{lis}[chapter]
+
+                             % Note:  The listings don't have space between the chapters, unlike
+                             % the standard list of tables etc.  At the end, copy the spacing
+                             % commands from the .toc file and insert into the .lis file.  Then,
+                             % DO NOT LATEX it again, simply go to the DVI viewer!
+%*************************************************************************************************************
+% TABLES
+%*************************************************************************************************************
+\usepackage{tabularx}        % Package used to make variable width-columns, i.e.,
+                             % column widths are changed to fit the maximum width
+                             % and text is wrapped nicely.
+
+\usepackage{threeparttable}
+%*************************************************************************************************************
+% CAPTIONS
+%*************************************************************************************************************
+\usepackage[hang]{caption}   % Package used to make my captions 'hang', i.e., wrap
+                             % around, but not under the name of the caption.
+%-------------------------------------------------------------------------------------------------------------
+% Find that the captions are too far from my verbatim figures, but if
+% I change it to 0, then the captions are too close for my other types
+% of figures.  Maybe set each one separately?
+%\setlength{\abovecaptionskip}{1ex}
+
+%\setlength{\textfloatsep}{1ex plus1pt minus1pt}
+
+%\setlength{\intextsep}{1ex plus1pt minus1pt}
+
+%\setlength{\floatsep}{1ex plus1pt minus1pt}
+%*************************************************************************************************************
+
+
+%*************************************************************************************************************
+% MISCELLANEOUS
+%*************************************************************************************************************
+\usepackage{layout}          % useful for determining the margins of a document
+                             % use with \layout command
+%-------------------------------------------------------------------------------------------------------------
+\usepackage{changebar}       % Way of indicating modifications by putting bars in the
+                             % margin.  Read about it in "The Latex Companion".
+%*************************************************************************************************************
+
+
+%*************************************************************************************************************
+% REFERENCES ETC.
+%*************************************************************************************************************
+\usepackage{varioref}        % Better page references, e.g., "on preceding page", etc.
+                             % \vref{key} Create an enhanced reference.
+                             % \vpageref[text]{key} Create an enhanced page reference.
+                             % \vrefrange{key}{key} Create an enhanced range of references.
+                             % \vpagerefrange[text]{key}{key} Create an enhanced range of page references.
+                             % Note: doesn't really work for consecutive pages.
+
+% Renewing the text for before and after, because I don't like the default flip-flopping one.
+% And 'on the page before' sounds dumb!
+
+\renewcommand{\reftextafter}{on the next page}
+\renewcommand{\reftextbefore}{on the previous page}
+%-------------------------------------------------------------------------------------------------------------
+\usepackage{url}             % for use of \url - pretty web addresses
+% %*************************************************************************************************************
+% % HYPERLINKS (must be last)
+% %*************************************************************************************************************
+% \usepackage[]{hyperref}
+% \usepackage[dvips,bookmarks]{hyperref}
+%                              % Neat package to turn href, ref, cite, gloss entries
+%                              % into hyperlinks in the dvi file.
+%                              % Make sure this is the last package loaded.
+%                              % Use with dvips option to get hyperlinks to work in ps and pdf
+%                              % files.  Unfortunately, then they don't work in the dvi file!
+%                              % Use without the dvips option to get the links to work in the dvi file.
+%
+%                              % Note:  \floatstyle{ruled} don't work properly; so change to plain.
+%                              % Not as pretty, but functional...
+%                              % The bookmarks option sets up proper bookmarks in the pdf file :)
+%
+% % Need this command to allow hyperref to play nicely with gloss; otherwise
+% % almost every \gloss will cause an error...
+% \renewcommand{\glosslinkborder}{0 0 0}
+% %*************************************************************************************************************
+
+
+%*************************************************************************************************************
+% MISCELLANEOUS COMMANDS AND ENVIRONMENTS
+%*************************************************************************************************************
+% Use this command to show more table of contents - used when playing
+% with the draft outline
+% I think it should be about 2???
+\setcounter{tocdepth}{2}
+%*************************************************************************************************************
+% Environment definition I found in the "The Latex Companion".  Used to
+% create a list environment where the indenting is the same for all of the
+% entries, regardless of their length.  Note:  must \usepackage{calc}.
+\newenvironment{Ventry}[1]%
+    {\begin{list}{}{\renewcommand{\makelabel}[1]{\textbf{##1}\hfil}%
+        \settowidth{\labelwidth}{\textbf{#1:}}%
+        \setlength{\leftmargin}{\labelwidth+\labelsep}}}%
+    {\end{list}}
+%*************************************************************************************************************
+
+%*************************************************************************************************************
+% MY DEFINED COMMANDS
+%*************************************************************************************************************
+% Command that I can use to create notes in the margins;
+% adapted from Juergen's META tag
+\newcommand{\meta}[1]{\begin{singlespacing}
+{\marginpar{\emph{\footnotesize Note: #1}}}\end{singlespacing}}
+%*************************************************************************************************************
+% Command that I can use to create lined headings
+\newcommand{\heading}[1]{\bigskip \hrule \smallskip \noindent \texttt{#1} \smallskip \hrule}
+%*************************************************************************************************************
+% Command that I can use for reading in a file, verbatim, with line
+% numbers printed along the left side.  The parameter is the file name.
+\newcommand{\fileinnum}[1]{
+    \begin{singlespacing} {\footnotesize
+    \begin{listinginput}[1]{1}{#1}\end{listinginput}
+    }\end{singlespacing}
+}
+%*************************************************************************************************************
+% Command that I can use for reading in a file, verbatim, with NO line
+% numbers, but in a smaller font.  The parameter is the file name.
+\newcommand{\filein}[1]{
+    \begin{singlespacing}{\footnotesize
+    \begin{verbatiminput}{#1}\end{verbatiminput}
+    }\end{singlespacing}
+}
+%*************************************************************************************************************
+% Command that I can use for reading in a file, verbatim, with NO line
+% numbers, but in a smaller font.  The parameter is the file name.
+\newcommand{\fileinsmall}[1]{
+    \begin{singlespacing}{\scriptsize
+    \begin{verbatiminput}{#1}\end{verbatiminput}
+    }\end{singlespacing}
+}
+%*************************************************************************************************************
+% Dean't 'notesbox' command.  Needs setspace package.
+%   Usage: \notesbox{This is a note.}
+%
+\newcommand{\notesbox}[1]{
+%     \ \\
+      \singlespacing
+      \noindent\begin{boxedminipage}[h]{\textwidth}{\sf{#1}}\end{boxedminipage}
+      \doublespacing
+}
+
+
+%**********************************
+% My own definitions for shorthand
+%**********************************
+\usepackage{xcolor}
+%\usepackage{amsmath}
+\usepackage{bm}
+%\usepackage{listings}
+% % \textwidth 16cm \textheight 23.5cm
+% \renewcommand{\baselinestretch}{1.2}
+%\usepackage{graphicx}
+\usepackage{cancel}
+%\usepackage{subfigure}
+\usepackage{psfrag}
+\usepackage[greek,english]{babel} % added
+\usepackage[utf8x]{inputenx} %
+\usepackage[LGR, T1]{fontenc}
+\usepackage{textcomp}  % defines \textmu, which is now what inputenx seems to use for ?? - probably due inpmath.. also \textdegree... but not \textrho
+\usepackage{nomencl} % use nomenclatures
+\renewcommand{\nomname}{List of Abbreviations}
+\makenomenclature
+\usepackage{CJK} % to input Chinese
+%\AtBeginDvi{\input{zhwinfonts}}
+\allowdisplaybreaks[3]% page breaks are allowed, more relaxed. go with amsmath package.
+\usepackage{pdfsync}
+%\usepackage[square, comma, sort&compress]{natbib}
+\usepackage{cite}
+
+%\usepackage{graphics}
+%\usepackage{epsfig}
+%\usepackage{color}
+%\usepackage{multirow}
+%\usepackage[colorlinks]{hyperref}
+%\usepackage{fancyhdr}
+%\usepackage{calc}
+%\usepackage[numbers]{natbib}
+%\usepackage{bibentry}
+%\pagestyle{fancy}
+%\headheight = 12pt
+
+%\linespread{1.0}
+%\fancyhead[R]{\thepage}
+%\fancyfoot{}
+%\hoffset =-1 cm
+%\textwidth 424 pt
+%\renewcommand{\headrulewidth}{0.4pt}
+%\headwidth 424 pt
+%\parindent 1 cm
+% \usepackage[numbers]{natbib}
+
+%% a try on fixing subfigure sytle regarding lofdepth command
+ \makeatletter
+ \let\c@lofdepth\relax
+ \let\c@lotdepth\relax
+ \makeatother
+ \usepackage{subfigure}
+% \usepackage[subfigure]{tocloft}
+%\makeatletter
+%\providecommand{\IfElsePackageLoaded}[3]{\@ifpackageloaded{#1}{#2}{#3}}
+%\makeatother
+%\IfElsePackageLoaded{subfig}
+%	% IF subfig
+%	{\usepackage[subfigure]{tocloft}}{	
+%	% ELSE
+%	\IfElsePackageLoaded{subfigure}
+%		% IF subfigure
+%		{\usepackage[subfigure]{tocloft}}
+%	   % Else (No subfig nor subfigure)
+%		{\usepackage{tocloft}}
+%	}
+%
+%%%%%%%%% use pdf and eps at the same time %%%%%%
+%\newif\ifpdf
+%\ifx\pdfoutput\undefined
+%   \pdffalse
+%\else
+%   \pdfoutput=1
+%   \pdftrue
+%\fi
+\usepackage{ifpdf}
+
+\ifpdf
+   \usepackage{graphicx}
+   \usepackage{epstopdf}
+   \epstopdfsetup{suffix=}
+   \DeclareGraphicsRule{.eps}{pdf}{.pdf}{`epstopdf #1}
+   \pdfcompresslevel=9
+\else
+   \usepackage{graphicx}
+\fi
+%\DeclareGraphicsRule{.pdf}{eps}{}{`convert #1 eps:-}
+%% 定义是用 pdftex 还是 latex 的宏 \ifpdf
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\ifpdf
+%\DeclareGraphicsExtensions{.pdf,.png,.jpg,.mps}
+%\else
+%\DeclareGraphicsExtensions{.eps}
+%\fi
+
+%\newif\ifpdf
+%\ifx\pdfoutput\undefined
+%\pdffalse
+%\else
+%\pdfoutput=1
+%\pdftrue
+%\fi
+%\ifpdf
+%    \usepackage[pdftex]{graphicx}
+%    \pdfcompresslevel=9
+%\else
+%    \usepackage{graphicx}
+%    \DeclareGraphicsRule{.jpg}{eps}{.bb}{}
+%    \DeclareGraphicsRule{.png}{eps}{.bb}{}
+%\fi
+%\ifx\pdfoutput
+%\undefined \DeclareGraphicsRule{*}{eps}{*}{}
+%\graphicspath{{Figs/}}
+%\else
+%\DeclareGraphicsRule{*}{pdf}{*}{}
+%\graphicspath{{PDFfigs/}}
+%\fi
+
+% self-defined commands and definitions
+% braket.sty          Macros for Dirac bra-ket <|> notation and sets {|}
+%
+\def\bra#1{\mathinner{\langle{#1}|}}
+\def\ket#1{\mathinner{|{#1}\rangle}}
+\def\braket#1{\mathinner{\langle{#1}\rangle}}
+\def\Bra#1{\left<#1\right|}
+\def\Ket#1{\left|#1\right>}
+{\catcode`\|=\active
+  \gdef\Braket#1{\left<\mathcode`\|"8000\let|\BraVert {#1}\right>}}
+\def\BraVert{\egroup\,\mid@vertical\,\bgroup}
+{\catcode`\|=\active
+  \gdef\set#1{\mathinner{\lbrace\,{\mathcode`\|"8000\let|\midvert #1}\,\rbrace}}
+  \gdef\Set#1{\left\{\:{\mathcode`\|"8000\let|\SetVert #1}\:\right\}}}
+\def\midvert{\egroup\mid\bgroup}
+\def\SetVert{\egroup\;\mid@vertical\;\bgroup}
+% Some stuff deleted
+% Macros for Dirac bra-ket <|> notation
+\def\bra#1{\mathinner{\langle{#1}|}}
+\def\ket#1{\mathinner{|{#1}\rangle}}
+\def\braket#1{\mathinner{\langle{#1}\rangle}}
+\def\ave#1{\mathinner{\langle{#1}\rangle}}
+%
+% END  braket.sty     Macros for Dirac bra-ket <|> notation and sets {|}
+
+\newcommand{\greek}[1]{{\selectlanguage{greek}#1}} % will look for grmn font: tlmgr install cbfonts (65 MB)
+\newcommand\lvec[1]{\accentset{\leftarrow}{#1}}
+\newcommand{\dt}{\frac{d}{dt}}
+\newcommand{\dtau}{\frac{d}{d\tau}}
+\newcommand{\ssp}{\braket{\sigma^{+}(t)\sigma^{-}(t)}}
+\newcommand{\aap}{\braket{a^{\dagger}(t)a(t)}}
+\newcommand{\as}{\braket{a^{\dagger}(t)\sigma^{-}(t)}}
+\newcommand{\sa}{\braket{a(t)\sigma^{+}(t)}}
+\newcommand{\Hssp}{\braket{\sigma^{+}\sigma^{-}}}
+\newcommand{\Haap}{\braket{a^{\dagger}a}}
+\newcommand{\Has}{\braket{a^{\dagger}\sigma^{-}}}
+\newcommand{\Hsa}{\braket{a\sigma^{+}}}
+\newcommand{\adag}{a^{\dagger}}
+\newcommand{\sigm}{\sigma^{-}}
+\newcommand{\sigp}{\sigma^{+}}
+\newcommand{\sigz}{\sigma^{z}}
+\newcommand{\gp}{\gamma^{\prime}}
+\newcommand{\oal}{\omega_a-\omega_0}
+\newcommand{\ocl}{\omega_c-\omega_0}
+\def\GFT{\overline{\bf G}}
+\def\IT{\overline{\bf I}}
+\def\TT{\overline{\bf T}}
+\def\MT{\overline{\bf M}}
+\def\AT{\overline{\bf A}}
+\def\BT{\overline{\bf B}}
+\def\fT{\overline{\bf f}}
+\def\LT{\overline{\bf L}}
+\def\alphaT{\overline{\bf \alpha}}
+\def\GFTr{\overline{\bf G}\left(\mathbf{r},\mathbf{r}'\right)}
+\def\GFTrw{\overline{\bf G}\left(\mathbf{r},\mathbf{r}';\omega\right)}
+\def\rarg{\left(\mathbf{r}\right)}
+\def\rargw{\left(\mathbf{r};\omega\right)}
+\def\rrarg{\left(\mathbf{r},\mathbf{r}'\right)}
+\def\rrargw{\left(\mathbf{r},\mathbf{r}';\omega\right)}
+\def\rk{\left(\mathbf{r}_k\right)}
+\def\rn{\left(\mathbf{r}_n\right)}
+\def\rnrn{\left(\mathbf{r}_n,\mathbf{r}_n\right)}
+\def\rnrk{\left(\mathbf{r}_n,\mathbf{r}_k\right)}
+\def\rkrk{\left(\mathbf{r}_k,\mathbf{r}_k\right)}
+\def\rkrn{\left(\mathbf{r}_k,\mathbf{r}_n\right)}
+\def\br{\mathbf{r}}
+\def\bG{\mathbf{G}}
+\def\balpha{{\bm \alpha}}
+\def\Erw{\hat{\mathbf{E}}^{(N)}(\mathbf{r},\omega)}
+\def\E0{\hat{\mathbf{E}}^{(0)}(\mathbf{r},\omega)}
+\def\Arw{\hat{\mathbf{A}}(\mathbf{r},\omega)}
+\def\Enw0{\hat{\mathbf{E}}^{(0)}(\mathbf{r}_n,\omega)}
+\def\Snw{\hat{\mathbf{S}}_n(\omega)}
+\def\dnw{\hat{\mathbf{d}}_n(\omega)}
+\def\Unw{\mathbf{U}_n(\omega)}
+\def\unw{U_n(\omega)}
+\def\Alphanw{{\bm \alpha}_n(\omega)}
+\def\alphanw{\alpha_n(\omega)}
+\def\Krrw{\mathbf{K}(\mathbf{r},\mathbf{r}',\omega)}
+\def\Krrnw{\mathbf{K}(\mathbf{r},\mathbf{r}_n,\omega)}
+\def\GTrrw{\mathbf{G}^T(\mathbf{r},\mathbf{r}',\omega)}
+\def\Grrw{\mathbf{G}(\mathbf{r},\mathbf{r}',\omega)}
+\def\Gn{\mathbf{G}^{(n)}}
+\def\Gm1{\mathbf{G}^{(n-1)}}
+\def\GN{\mathbf{G}^{(N)}}
+\def\G0{\mathbf{G}^{(0)}}
+\def\Gb{\mathbf{G}^0}
+\def\G1{\mathbf{G}^{(1)}}
+\def\Gi{\mathbf{G}^{(i)}}
+\def\flamr{\mathbf{f}_\lambda(\mathbf{r})}
+\def\rrn{\mathbf{r},\mathbf{r}_n}
+\def\rnrn{\mathbf{r}_n,\mathbf{r}_n}
+\def\rr{\mathbf{r},\mathbf{r}'}
+\def\en{\mathbf{e}_n}
+\def\eye{\mathbf{I}}
+
+
+% define \onlinecite which is equivalent to RevTex style
+\def\onlinecite{\cite}
+
+%*************************************************************************************************************
+% HYPERLINKS (must be last)
+%*************************************************************************************************************
+%\usepackage[]{hyperref}
+\usepackage[bookmarks]{hyperref}
+                             % Neat package to turn href, ref, cite, gloss entries
+                             % into hyperlinks in the dvi file.
+                             % Make sure this is the last package loaded.
+                             % Use with dvips option to get hyperlinks to work in ps and pdf
+                             % files.  Unfortunately, then they don't work in the dvi file!
+                             % Use without the dvips option to get the links to work in the dvi file.
+
+                             % Note:  \floatstyle{ruled} don't work properly; so change to plain.
+                             % Not as pretty, but functional...
+                             % The bookmarks option sets up proper bookmarks in the pdf file :)
+
+% Need this command to allow hyperref to play nicely with gloss; otherwise
+% almost every \gloss will cause an error...
+\renewcommand{\glosslinkborder}{0 0 0}
+%*************************************************************************************************************

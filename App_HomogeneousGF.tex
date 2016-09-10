@@ -1,0 +1,69 @@
+\chapter[Homogeneous GF]{Green Function in a Homogeneous Medium}\label{App:homogeneous}
+If we place a dipole in a homogeneous background medium and a time monitor in the same place, we can easily get the analytical homogeneous GFT using Lumerical FDTD Solutions.
+Every diagonal element of the imaginary part of the GFT gives,
+\begin{equation}
+ \label{Ghom1}
+{\rm Im}\left[ {\rm G}_{hom} \left(\br,\br,\omega\right)\right] = \frac{\omega \sqrt{\varepsilon}}{6\pi c}.
+\end{equation}
+
+Notice that, if we define the Green function by
+\begin{equation}
+\label{def:GEwave2}
+ -\nabla \times \nabla \times \mathbf{G}(\rr,\omega) + \varepsilon(\mathbf{r})(\omega/c)^2 \mathbf{G}(\rr,\omega) = (\omega/c)^2\mathbf{I} \delta \left(\br-\br'\right)
+\end{equation}
+rather by Eq. (\ref{def:GEwave}), we should multiply the factor $\frac{\omega^2}{c^2}$ in front of the previous homogeneous Green function to give
+\begin{equation}
+ \label{Ghom2}
+{\rm Im}\left[ {\rm G}_{hom} \left(\br,\br,\omega\right)\right] = \frac{\omega^3 \sqrt{\varepsilon}}{6\pi c^3}.
+\end{equation}
+Consequently, in the Lippmann-Schiwinger equation for $\Erw$, we need to omit the same factor in $\Snw$ and $\Unw$, and use $\hat{\mathbf{d}}_n(\omega)$ and ${\bm \alpha}_n(\omega)$ instead. The same applies to $\Krrw$.
+The discussions below will mainly apply the Equ.\eqref{Ghom1} to the definition of GFT (Equ.\eqref{def:GEwave}).
+
+
+
+The GF expression for a homogeneous medium can be used to estimate the FDTD calculation precision, since the precision is mainly dependent on the computational settings.
+If well controlled, the deviation can be less than 1\% in a very wide frequency range.
+%Moreover, we can also find a good monitoring time by observing if the oscillating field excited by certain dipole source in a homogeneous medium can decay to zero in a certain monitoring time. A proper monitoring time is essential to perform a good Fourier transformation.
+
+Besides, there are many other quantities related to the homogeneous Green function.
+For instance, the homogeneous space density of states is given by
+\begin{equation}
+\begin{split}
+ \rho \left(\omega\right) =& \frac{6 \omega}{\pi c^2} {\rm Im} \left[ {\rm G}_{hom} \left(\br,\br,\omega\right)\right]\\
+ =& \frac{\omega^2 \sqrt{\varepsilon}}{\pi^2 c^3}.
+\end{split}
+\end{equation}
+The local density of states is given by,
+\begin{equation}
+\begin{split}
+ \rho_{loc} \left(\br, \omega\right) =& \frac{6 \omega}{\pi c^2} {\rm Im} \left[ \mathbf{G} \left(\br,\br,\omega\right)\right].
+ \end{split}
+\end{equation}
+The bare cavity Green function can be decomposed in several ways. One is decomposing it into longitudinal (or local) and transverse (or propagating) parts. The other is decomposing it into the homogeneous part (or direct part), $\mathbf{G}_{hom}$,
+and the scattered part (or indirect part), $\mathbf{G}_{scatt}$.
+Decomposing into the homogeneous and scattered parts allow us to rewrite the local density of states as,
+\begin{equation}
+\begin{split}
+ \rho_{loc} \left(\br, \omega\right) =\frac{\omega^2 \sqrt{\varepsilon}}{\pi^2 c^3}+ \frac{6 \omega}{\pi c^2} {\rm Im} \left[ \mathbf{G}_{scatt} \left(\br,\br,\omega\right)\right].
+ \end{split}
+\end{equation}
+The scattered part of the Green function is well behaved at $\br = \br'$. These quantities above are related to the Purcell factor, $PF(\mathbf{r},\omega)$, defined
+via \cite{Purcell1946},
+\begin{equation}
+\begin{split}
+ PF(\mathbf{r},\omega) =& \frac{\rho_{loc} \left(\br, \omega\right)}{\rho \left(\br, \omega\right)}\\
+=& \frac{{\rm Im} \left[\mathbf{G} \left(\br,\br,\omega\right)\right] }{{\rm Im} \left[\mathbf{G}_{hom} \left(\br,\br,\omega\right)\right]}\\
+=& 1+ \frac{{\rm Im} \left[\mathbf{G}_{scatt} \left(\br,\br,\omega\right)\right] }{{\rm Im} \left[\mathbf{G}_{hom} \left(\br,\br,\omega\right)\right]}\\
+ \end{split}
+\end{equation}
+Related to both the Purcell factor and the local density of states \cite{Yao2009b},
+the decay rate of an emitter with dipole moment ${\bm \mu}$ is given by
+\begin{equation}
+ \Gamma (\mathbf{r},\omega) = \Gamma_0 + \frac{2 \omega^2 {\bm \mu}\cdot {\rm Im }\left[\mathbf{G}_{scatt} \left(\br,\br,\omega\right) \right]\cdot {\bm \mu}}{\hbar \varepsilon_0 c^2},
+\end{equation}
+and the lamb shift (frequency shift) of the emitter is given by
+\begin{equation}
+ \Delta \omega (\mathbf{r},\omega) = \frac{\omega^2 {\bm \mu}\cdot {\rm Re }\left[\mathbf{G}_{scatt} \left(\br,\br,\omega\right) \right]\cdot {\bm \mu}}{\hbar \varepsilon_0 c^2}.
+\end{equation}
+The well known Einstein ``A'' coefficient~\cite{Dung2000}, namely
+$\Gamma_{\rm A}=\omega^3\mu_1^2\sqrt{\varepsilon}/(3\hbar\varepsilon_0c^3)$.

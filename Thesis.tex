@@ -1,0 +1,285 @@
+
+
+%*************************************************************************************************************
+% PREAMBLE STUFF
+%*************************************************************************************************************
+% Instead of inserting my \usepackage and defined commands here, I keep them in a separate file
+\include{myPreamble}
+
+%*************************************************************************************************************
+% INCLUDE ONLY
+%*************************************************************************************************************
+% Use if you want to include only certain parts of the document, example \includeonly{introduction}
+% in order to speed up compile time when you're focussing on some particular part.
+%\includeonly{}
+
+%*************************************************************************************************************
+% DOCUMENT
+%*************************************************************************************************************
+
+\begin{document}
+
+%*************************************************************************************************************
+% TITLE
+%*************************************************************************************************************
+
+\title{The Effects of Multi-exciton Interactions \\ on Optical Cavity Emission}
+
+\author{Xiaodong Qi}
+
+\dept{Department of Physics, Engineering Physics \& Astronomy}
+\degree{Master of Science}
+
+% OPTIONAL HERE
+% ~~~~~~~~~~~~~
+% \submitdate{month year in which submitted to GPO}
+%        - date LaTeX'd if omitted
+% \copyrightyear{ear degree conferred}
+%        - year LaTeX'd if omitted
+% \figurespagetrue or \figurespagefalse
+%        - produce or don't produce a List of Figures page (true by default)
+% \tablespagetrue or \tablespagefalse
+%        - produce or don't produce a List of Tables page (true by default)
+
+% SET LIST style %% added by Xiaodong
+\lstset{language={Matlab}, frameround=tttt, basicstyle=\tiny,
+        frame=single, framerule=5cm, rulecolor=\color{blue},
+        framexrightmargin=-8cm,
+        columns=[c],
+        boxpos=c,
+        morecomment=[l][\color{green}]\%,
+        %backgroundcolor=\color{yellow},
+        }
+
+\beforepreface
+
+% Adding single spacing so abstract and table of contents is single spaced.
+
+%*************************************************************************************************************
+% ABSTRACT
+%*************************************************************************************************************
+
+\prefacesection{Abstract}
+
+\input{Abstract}
+
+%*************************************************************************************************************
+% ACKNOWLEDGEMENTS
+%*************************************************************************************************************
+
+\prefacesection{Acknowledgments}
+
+%To be done...
+
+%This research is on ensemble-cavity interaction, but similar conclusions may be also valid for people-society interaction at large... This is how this research starts and ends. I appreciate good behaviors of yours.
+
+%We all have the responsibility to build a better world, especially for people who have a sound power and is capable to truly hear the voice of nature. As shown in this study, ensemble matters, no matter how weak they are. At the same time, a few individuals who coupled to the environment strongly, either close to the intrinsic resonance of the ``cavity'' or at a significant position, matter most and can transfer the interactions between the ensemble and the environment greatly...
+
+There are aspects characterizing the intrinsic properties of society and human beings, which we call virtues. Everyone's actions and cognitions around those virtues, those ends and goals, consolidate this world as a family.
+
+I will always remember those moments that moved and touched me deeply. When I was looking for someone to help me edit my writing, someone worked through my documents with me word by word. When I was busy handling urgent events, someone came to offer help. When I was taking a break, someone came to accompany me and share a joyful time. When I was worrying about living in this country far away from my home town, someone came to offer me food and opportunity. When I was frustrated, someone came to listen, comfort, and encourage me. When I was struggling, someone joined me and struggled alongside me... Many people created these moments, and contributed to the special experiences in my life.
+
+There are other moments in the world at large in which I can see sparks of hope. Someone cuts his hair for cancer. Someone fights for justice and fairness beyond what the laws and regulations specify. Someone works on his students' behalf longer than average. Someone donates to charity. Someone puts up a solar energy poster publicizing a green planet. Someone  leads a union representing the rational voice of people. Someone teaches with all her heart. Someone is passionate about his beliefs and listens to what nature and history tells us. Someone insists on maintaining her integrity even if it may cost a lot. Someone creates positive space and environments. Someone appreciates the good so that the good grows... These are commonly seen and deep in everyone's heart.
+
+Honor is not considered to be a part of prosperity, but prosperity will be found in righteousness. There is something more significant than material satisfaction in our affection, beliefs, relationships, the organization of our communities and the information we are passing along. Nature creates randomness. Intelligence is reforming the world to harmony. Moving and changing are the eternal themes of our lives and the world. Everyone is part of the process of changing and moving. As this thesis and innumerable works have already shown, everyone contributes to the social change and the development of society also changes everyone's life; especially as those who aware the intrinsic drive of society, and who behave in accordance with it can change the world tremendously. We do not need to wait for everything to be perfect; we only need to be the change we want to see and enjoy the here and now.
+
+I believe all the behaviors and beliefs that created the moments referred to above are worth appreciating. With them, we would have a joyful place to live even if there were no iPad, no McDonald's, no Hollywood... I have been moved in the course of studying at Queen's University, and will dedicate my life and my destiny to the world determined by all of us.
+
+%\noindent\begin{flushright} Qi, Xiaodong
+%
+%June 4th, 2012
+%
+%at Stauffer Library, Queen's University
+%\end{flushright}
+
+\bigskip
+\bigskip
+\noindent{The main contributors to this thesis work are acknowledged as below.}
+
+Dr. Hughes initially guided me into this field and funded me to start the research. I independently derived all the key theoretical formulas presented in this thesis and did the coding and numerical calculation work, which has been examined in light of the known results (see Chapter 2). FDTD Solutions which is a product of Lumerical Solutions Inc. and Matlab which is a product of The Mathworks have been used for the FDTD simulation of photonic configurations and the rest of my coding work.
+I also would like to mention that a code composed by Mr. V.S.C. Manga Rao, Mr. Mark Patterson, and Dr. Cole {Van Vlack}, for three-layer Green's function calculation has been used to scale the radiation and evanescence contributions of emitters in media, but this part of the calculation procedure will not be presented in this thesis; rather, the main conclusion from this calculation will be announced in the next chapter. I have also used a Harminv code developed by Mark Patterson to get the Q-value of cavities.
+Part of the high performance calculation was done on Dr. Hughes group's cluster server, and the servers in HPCVL and WestGrid. Mr. Hui Yuan provided his personal computer and dedicated his time for me to double check the calculation results presented in this thesis. Helpful and professional discussions also came from Dr. Cole {Van Vlack}, Dr. Pradyumna Pathak, Dr. Peijun Yao, Dr. Philip Kristensen, Ms. Emilia Illes, Mr. Yongyi Chen of the Chinese Academy of Science, Dr. Xiaoyi Bao of the University of Ottawa, {\it et al}.
+
+Dr. St{\'e}phane Courteau, Ms. Loanne Meldrum, Dr. David Hanes and Dr. Jian Yang of the Physics Department of Queen's University, Dr. David Rappaport of School of Graduate Studies, Ms. Victoria Millious of SGPS, Dr. Jing Xu, Mr. Hui Yuan, Dr. Jin Lu, my family, and many anonymous people helped me in solving some cumbersome yet significant issues, including the funding problem, in the course of my study at Queen's University.
+
+While I was writing my thesis, many people offered me advice, paid comments to my work or helped me edited my thesis. This group of people includes Dr. Cole {Van Vlack}, Mr. Zhigang Wu, Dr. Li Qin of the Chinese Academy of Science, Dr. Dongshen Tu, Dr. Devon Lin, Ms. Elsa Xiao, Ms. Jia Xin Qiu, Ms. Maureen Garvie and Ms. Lynne Clark of The Writing Center, Mr. Yang Ji, Debra Fieguth, Dr. Xiaoyi Bao of the University of Ottawa, {\it et al}.
+
+At the last stage of my thesis examination and submission, my committee members including Dr. St{\'e}phane Courteau (chair), Dr. Marc Dignam (supervisor), Dr. Malcolm Stott (examiner) and Dr. Lawrence Widrow (examiner) provided helpful advice and comments to my thesis, and marked questions of grammar and obscurities in the hard copies of my thesis. Without their inputs, this thesis would be far away from the final approval.
+
+My thanks go to all the contributors to my MSc. study at Queen's University.
+%One action worth appreciating is that you can recognize what a person around you need you. Through suffering, I know something that can be only finished with the help of others. Language is such a thing for a non-native speaker, if you are using it everyday, it become your second nature, even though there are all kinds of errors. I cannot recognize those hidden errors until someone else reminds me. Thank very much to friends who correct me on my documents writing, paper writing and thesis writing... Food and living expenses are another things people need when they are losing any other things... Notice what you can do and are good at doing is the beginning of building a better world. Because you are important to people who cannot live well without you.
+
+%There are things that may be a direct need of people but deeply hidden social protocols that keep this world moving towards better. Integrity... Justice... Independence... Hardwork... Passion... You make, therefore you are. I appreciate, therefore I am. Everyone counts.
+
+%\begin{CJK*}{GB}{gbsn}
+%No country is perfect, no person is perfect, no social rule is perfect. When you realize this and behave based on reality and your beliefs, and appreciate the good, I appreciate you very much...
+%``不以利为利，以义为利。''--
+%Pecuniary gain is not to be considered to be prosperity, but its prosperity will be found in righteousness... We all have our logic to do things. Sometimes, it is not a problem of logic but what you are looking for matters most. When we are asking for wrong questions or pursuing wrong beliefs, nature depreciates. This world is on the way of changing based on your beliefs, behavior and exploring. You are also on the way of changing. Your well-being will be improved through pursuing your beliefs of what nature appreciates, and through making changes and taking actions...
+%\end{CJK*}
+
+%Things are not necessarily perfect. Even with ``repulsions'' or ``far-off-resonance individuals'', this world can be changed for the good. I sincerely acknowledge everyone who is seeking the meaning of life, the calling of the society, and the fate of mankind, and behaving as they should and can do in the world I am in... This is my research most importantly about...
+
+%To discover...
+
+%\singlespacing \afterpreface \doublespacing
+
+% nomenclatures
+\nomenclature{E-field}{electrical field}
+\nomenclature{Equ. or Eq.}{Equation}
+\nomenclature{FDTD}{finite-different time-domain}
+\nomenclature{Fig.}{Figure}
+\nomenclature{FWHM}{full-width half-maximum}
+\nomenclature{GF}{Green function, or Green's function}
+\nomenclature{GFT}{Green function tensor, or Green's function tensor}
+\nomenclature{LS}{least square}
+\nomenclature{LSM}{least square method}
+\nomenclature{ME}{master equation}
+\nomenclature{QD}{quantum dot}
+\nomenclature{QED}{quantum electrodynamics}
+\nomenclature{QRT}{quantum regression theorem}
+\nomenclature{PC}{photonic crystal}
+\nomenclature{PL}{Photoluminescence}
+\nomenclature{Ref.}{Reference}
+
+%\printnomenclature[3cm]
+
+%*************************************************************************************************************
+% MEATY CHAPTERS
+%*************************************************************************************************************
+
+%Testing my index\index{index} abilities.  And
+%sub-entry\index{index!subentry} abilities.
+
+% This command can be used to view the page layout for this document
+% \layout
+
+% Here, I'm tweaking how much space is put above and below floats.
+% Comment out if you want the *purest* latex spacing.
+\setlength{\abovedisplayskip}{3pt plus1pt minus1pt}
+\setlength{\abovedisplayshortskip}{3pt plus1pt minus1pt}
+\setlength{\belowdisplayskip}{3pt plus1pt minus1pt}
+\setlength{\belowdisplayshortskip}{3pt plus1pt minus1pt}
+
+%\pagenumbering{roman}
+%\setcounter{page}{vii}
+%\clearpage
+%\setcounter{page}{1}
+% Include my chapter texts - kept separated to make editing easier.
+\include{Introduction}
+%\include{Background}
+\include{Theory}
+
+\include{Cavity}
+\include{Ensemble}
+
+\include{Conclusion}
+
+%*************************************************************************************************************
+% BIBLIOGRAPHY
+%*************************************************************************************************************
+% This GATHER command is useful for when you want to use WinEdt's Gather functionality, i.e., type
+% \cite{} and a popup box appears with all of your citations to choose from.  Leave the % on the next line.
+%GATHER{thesis.bib}
+
+% Put in \nocite{*} so all entries in the bibliography are included
+%\nocite{*}
+
+%\begin{CJK*}{GB}{gbsn}
+% quthesis style is plain, but I prefer alpha
+%\bibliographystyle{plain}
+\bibliographystyle{unsrt}
+%\bibliography{F:/References/HughesGroup/Queen}
+\bibliography{E:/References/Queens/Queen}
+%
+%\end{CJK*}
+
+%*************************************************************************************************************
+% APPENDICES
+%*************************************************************************************************************
+\appendix
+
+\include{App_FDTD_GFT}
+\include{App_HomogeneousGF}
+\include{App_AnalyticalGF}
+\include{App_GF}
+\include{App_GF_ensemble}
+
+%\include{App_ExtraAnalysis}
+
+
+%*************************************************************************************************************
+% GLOSSARY
+%*************************************************************************************************************
+
+% Include all glossary items, even the ones not referred to.  Leave the % in the next line.
+%GATHER{glossary.bib}
+
+% Rem to delete %%% if using the glossary...
+%\gloss[nocite]{*}
+% Insert the glossary HERE
+%\printgloss{glossary}
+
+%*************************************************************************************************************
+% INDEX
+%*************************************************************************************************************
+% Here's where the index would be printed, if you created one.  Remove the % on the next line.
+%\printindex
+
+%*************************************************************************************************************
+% CURRICULUM VITAE
+%*************************************************************************************************************
+
+\chapter*{Vita}
+\addcontentsline{toc}{chapter}{Vita}
+
+% Note:  If you find that the CV starts having a heading at the top of the page
+% (i.e., the heading from the bibliography or last section), then that means that
+% the tabular environment has become too big to stay on one page.
+
+\singlespacing
+\begin{tabular}{ll}
+\textbf{Name}                           & Xiaodong Qi \\
+                                        & \\
+\textbf{Place and year of birth}\ \     & Pingyi, Shandong Province, P. R. China, 1985\\
+                                        & \\
+\textbf{Education \& Research Experiences}          & Ensemble-cavity interaction \\
+                                        & 2010.6-2012 \\
+                                        & Queen's University \\
+                                        & \\
+                                        & Coherent Semiconductor laser arrays \\
+                                        & 2007.8-2010.6 \\
+                                        & Chinese Academy of Science \\
+                                        & \\
+                                        & THz radiation generation and optical rectification \\
+                                        & 2003.8-2007.6 \\
+                                        & Shandong University of Science \& Technology \\
+                                        & \\
+
+%\textbf{Experience}                     & RA \\
+%                                        & Study on Photon Emitters Coupled QED-cavity System \\
+%                                        & Queen's University, Kingston, Canada, 2010-2011 \\
+%                                        & \\
+%                                        & TA \\
+%                                        & Queen's University, Kingston, Canada, 2010-2012 \\
+%                                        & \\
+%                                        & RA \\
+%                                        & Study on Semiconductor Laser Arrays \\
+%                                        & CIOMP, CAS, Changchun, China, 2007-2010 \\
+%                                        & \\
+%                                        & TA \\
+%                                        & SDUST, Qingdao, China, 2003-2007\\
+%                                        & \\
+%\textbf{Major Awards}
+%                                        & Award 1, Year \\
+%                                        & \\
+%                                        & Award 2, Year \\
+%                                        & \\
+%                                        & Award 3, Years \\
+
+% If I had publications
+% \textbf{Publications}                    & TBA\\
+
+\end{tabular}
+\doublespacing
+%*************************************************************************************************************
+\end{document}

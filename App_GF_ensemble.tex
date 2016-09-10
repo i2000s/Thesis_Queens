@@ -1,0 +1,74 @@
+\chapter[GFs for Ensemble Coupled to a Cavity]{Derivation of GFs of ensemble dipoles coupled to a cavity}\label{App:GF_ensemble}
+
+In scenario one, there are $N$ background dipoles in a mean electrical field (E-field) with resonances labeled as $\Omega_n$. For short hand, we name all Green's functions as $G^{(n)}_{i,j}$ or $G^{(n)}_{R,j}$ for the $n$th order of GFs between dipoles (interacting term) or from a dipole to a detector (detected term), where $i,j=1,2,3,\cdots,N$ label the dipoles, and $R$ denotes an arbitrary position. Since the coupling strength for all QDs is the same,
+\begin{equation}
+\label{G0ij}
+ G^{(0)}_{i,j}=G^{(0)}_{R_b,R_b},\quad i,j=1,2,3,\cdots,N.
+\end{equation}
+And the Dyson equation (see, for example, Equ.\eqref{dysonGnij}) gives
+\begin{equation}
+\label{Gnij}
+ G^{(n)}_{i,j}=\frac{G^{(n-1)}_{i,j}}{1-G^{(n-1)}_{n,n}\alpha_n},
+\end{equation}
+If we substitute $n=1,2,3,\cdots,N$ into the above equation, and use Equ.\eqref{G0ij}, we can see that Green's function with different subscripts yet with the same order are equal to each other, which means
+\begin{equation}
+\label{Gnij11}
+ G^{(n)}_{i,j}=G^{(n)}_{R_b,R_b}
+\end{equation}
+ and we only need to calculate $G^{(n)}_{R_b,R_b}$ to get all other equivalent iteration terms. In the same way, we can also prove that
+\begin{equation}
+\label{GnRjR1}
+ G^{(n)}_{R,j}=G^{(n)}_{R,R_b}.
+\end{equation}
+% where $R$ is arbitrary positions for sensors or sources.
+
+Now, Equ.\eqref{Gnij} gives
+\begin{equation}
+ G^{(n)}_{R_b,R_b}=\frac{G^{(n-1)}_{R_b,R_b}}{1-G^{(n-1)}_{R_b,R_b}\alpha_n},
+\end{equation}
+or
+\begin{equation}
+\label{revGn11}
+ \frac{1}{G^{(n)}_{R_b,R_b}}=\frac{1}{G^{(n-1)}_{R_b,R_b}}-\alpha_n,
+\end{equation}
+which gives a progression of \{$\frac{1}{G^{(n)}_{R_b,R_b}}$\} with linear interval $-\alpha_n$. So, we can easily solve and obtain the general terms
+\begin{equation}
+ \frac{1}{G^{(n)}_{R_b,R_b}}=\frac{1}{G^{(0)}_{R_b,R_b}}-\sum_i^n{\alpha_i},
+\end{equation}
+or Equ.\eqref{Gn11}
+%\begin{equation}
+%\label{Gn11}
+% G^{(n)}_{R_b,R_b}=\frac{G^{(0)}_{R_b,R_b}}{1-G^{(0)}_{R_b,R_b}\sum_i^n{\alpha_i}}.
+%\end{equation}
+
+Meanwhile, the Dyson equation for $G^{(n)}_{R,R_b}$ combined with Equs.\eqref{Gnij11}, ~\eqref{GnRjR1} and ~\eqref{Gn11} leads to
+\begin{equation}
+\begin{split}
+ G^{(n)}_{R,R_b}=& G^{(n-1)}_{R,R_b}+G^{(n-1)}_{R,R_b}\cdot \alpha_n \cdot G^{(n)}_{R_b,R_b}\\
+=& G^{(n-1)}_{R,R_b}\cdot (1+ \frac{G^{(0)}_{R_b,R_b}}{1- G^{(0)}_{R_b,R_b}\sum_i^n{\alpha_i}}),
+\end{split}
+\end{equation}
+or
+\begin{equation}
+ \frac{G^{(n)}_{R,R_b}}{G^{(n-1)}_{R,R_b}}=\frac{1-G^{(0)}_{R_b,R_b}\sum_i^{n-1}{\alpha_i}}{1-G^{(0)}_{R_b,R_b}\sum_j^n{\alpha_j}},
+\end{equation}
+hence we have
+\begin{equation}
+\begin{split}
+ \frac{G^{(n)}_{R,R_b}}{G^{(0)}_{R,R_b}} &= \frac{G^{(n)}_{R,R_b}}{G^{(n-1)}_{R,R_b}} \frac{G^{(n-1)}_{R,R_b}}{G^{(n-2)}_{R,R_b}}
+\cdots \frac{G^{(1)}_{R,R_b}}{G^{(0)}_{R,R_b}}  \\
+&= \frac{\cancel{1-G^{(0)}_{R_b,R_b}\sum_i^{n-1}{\alpha_i}}}{1-G^{(0)}_{R_b,R_b}\sum_j^n{\alpha_j}}
+\frac{\cancel{1-G^{(0)}_{R_b,R_b}\sum_i^{n-2}{\alpha_i}}}{\cancel{1-G^{(0)}_{R_b,R_b}\sum_j^{n-1}{\alpha_j}}}\\
+&\quad \cdots
+\frac{1}{\cancel{1-G^{(0)}_{R_b,R_b}{\alpha_1}}} \\
+&= \frac{1}{1-G^{(0)}_{R_b,R_b}\sum_j^n{\alpha_j}},
+\end{split}
+\end{equation}
+which finally leads to Equ.\eqref{GnR1}.
+%\begin{equation}
+%\label{GnR1}
+% G^{(n)}_{R,R_b}=\frac{G^{(0)}_{R,R_b}}{1-G^{(0)}_{R_b,R_b}\sum_j^n{\alpha_j}}.
+%\end{equation}
+%Please notice that both equations ~\ref{Gn11} and ~\ref{GnR1} only have one  cumulative variable, which is $\sum_j^n{\alpha_j}$, so to calculate the series of \{$G^{(n)}$\} that we can simply apply high-efficient matrix operators within a few steps by avoiding time-consuming iteration procedure in Matlab.
+
+Equations from~\ref{G1RR} to~\ref{Gn+1RbRb} for scenario two can be obtained in the similar way. 
